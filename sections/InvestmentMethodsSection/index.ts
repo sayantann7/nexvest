@@ -1,0 +1,1 @@
+export { InvestmentMethodsSection } from "./InvestmentMethodsSection";

@@ -1,0 +1,8 @@
+position: absolute;
+width: 744px;
+height: 639px;
+left: 734px;
+top: -7px;
+
+background: linear-gradient(0deg, #F5BC04, #F5BC04), url("/originalBGVideo.mp4");
+background-blend-mode: multiply, normal;

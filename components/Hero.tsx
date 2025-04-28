@@ -14,7 +14,7 @@ function Hero() {
         }, 1700);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [words.length]);
 
     return (
         <div className="container mx-auto px-11 py-20 grid md:grid-cols-5 gap-12 items-center bg-[#0D0C34] z-10">

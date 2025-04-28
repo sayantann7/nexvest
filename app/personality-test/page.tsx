@@ -1,12 +1,14 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
-import { motion} from 'framer-motion';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { ArrowRight, Check, ChevronRight, Brain, BarChart3, AreaChart, LineChart } from 'lucide-react';
 import NavbarWithoutAnimation from '@/components/NavbarWithoutAnimation';
 import BubbleAnimation from '@/components/BubbleAnimation';
+
 // Types for our questions and results
 interface Question {
     id: number;
@@ -58,7 +60,7 @@ function PersonalityTest() {
     const [showBubbles, setShowBubbles] = useState(false);
 
     // Scroll handlers
-    const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
+    const scrollToSection = (ref: React.RefObject<HTMLDivElement | null>) => {
         if (ref.current) {
             ref.current.scrollIntoView({ behavior: 'smooth' });
         }
@@ -142,7 +144,7 @@ function PersonalityTest() {
         },
         {
             title: "Aggressive Investor",
-            description: "You're seeking maximum returns and are comfortable with high volatility and risk. You have a long investment horizon.",
+            description: "You&apos;re seeking maximum returns and are comfortable with high volatility and risk. You have a long investment horizon.",
             investmentType: "Small-cap stocks, aggressive growth funds, alternative investments",
             riskLevel: "High",
             color: "#0891B2" // Teal for aggressive
@@ -214,20 +216,23 @@ function PersonalityTest() {
                 { threshold: 0.3 }
             );
 
-            if (ref.current) {
-                observer.observe(ref.current);
+            const currentRef = ref.current; // Store ref value in variable
+
+            if (currentRef) {
+                observer.observe(currentRef);
             }
 
             return () => {
-                if (ref.current) {
-                    observer.unobserve(ref.current);
+                if (currentRef) { // Use stored value
+                    observer.unobserve(currentRef);
                 }
             };
         }, [ref, callback]);
     };
 
     // Trigger bubble animations when education section is visible
-    useIntersectionObserver(educationSectionRef, () => {
+    // Replace the existing useIntersectionObserver call (around line 234)
+    useIntersectionObserver(educationSectionRef as unknown as React.RefObject<HTMLElement>, () => {
         setShowBubbles(true);
     });
 
@@ -235,8 +240,6 @@ function PersonalityTest() {
     useEffect(() => {
         if (showBubbles && bubblesContainerRef.current) {
             const container = bubblesContainerRef.current;
-            let interval: NodeJS.Timeout;
-
             const createBubble = () => {
                 const bubble = document.createElement('div');
                 const isMyth = Math.random() > 0.5;
@@ -314,7 +317,7 @@ function PersonalityTest() {
             };
 
             // Create a bubble every second
-            interval = setInterval(createBubble, 2000);
+            const interval = setInterval(createBubble, 2000);
 
             return () => {
                 clearInterval(interval);
@@ -344,10 +347,12 @@ function PersonalityTest() {
                     >
                         <source src="/bgVideo.mp4" type="video/mp4" />
                         {/* Fallback to image if video doesn't load */}
-                        <img
+                        <Image
                             src="/mutualFund/mf-bg.png"
                             alt="Investment Background"
                             className="w-full h-full object-cover"
+                            width={1920}
+                            height={1080}
                         />
                     </video>
                     {/* Lighter overlay for entire video */}
@@ -467,7 +472,7 @@ function PersonalityTest() {
                                 <h2 className="text-3xl md:text-5xl font-bold mb-4 text-blue-900">Investment Personality Test</h2>
                                 <p className="text-blue-900 font-medium max-w-2xl mb-8">
                                     Your answers to these carefully designed questions will help us understand your approach
-                                    to investing. We'll analyze your risk tolerance, knowledge level, and investment
+                                    to investing. We&apos;ll analyze your risk tolerance, knowledge level, and investment
                                     preferences to create a personalized profile.
                                 </p>
                             </motion.div>
@@ -514,7 +519,7 @@ function PersonalityTest() {
                                     <CardContent className="p-8">
                                         <div className="mb-8">
                                             <h3 className="text-xl font-semibold mb-4 text-blue-900">Question {currentQuestionIndex + 1} of {questions.length}</h3>
-                                            <Progress value={progress} className="w-full h-2 bg-gray-100" indicatorColor="bg-[#1E3A8A]" />
+                                            <Progress value={progress} className="w-full h-2 bg-gray-100" />
                                         </div>
 
                                         <motion.div
@@ -587,7 +592,7 @@ function PersonalityTest() {
                                 </div>
                                 <h2 className="text-3xl md:text-5xl font-bold mb-4 text-blue-900">Your Investment Profile</h2>
                                 <p className="text-blue-900 font-medium max-w-2xl">
-                                    After completing the test, you'll receive a detailed analysis of your investment personality,
+                                    After completing the test, you&apos;ll receive a detailed analysis of your investment personality,
                                     including recommended investment types and strategies tailored to your profile.
                                 </p>
                             </motion.div>
@@ -658,6 +663,7 @@ function PersonalityTest() {
                                     viewport={{ once: true }}
                                     className="bg-[#1E3A8A] border border-blue-100 rounded-xl p-8 text-center shadow-md"
                                 >
+                                    <h3 className="text-xl font-semibold mb-4 text-white">Complete the Test</h3>
                                     <p className="text-lg text-white font-medium mb-6">
                                         Complete the personality test to see your detailed investment profile and personalized recommendations.
                                     </p>

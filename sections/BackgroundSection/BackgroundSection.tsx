@@ -28,90 +28,120 @@ const calculators = [
   },
 ];
 
-export const BackgroundSection = (): JSX.Element => {
+export const BackgroundSection = (): React.ReactElement => {
   return (
-    <section className="w-full py-16 md:py-32 px-4 md:px-8 relative overflow-hidden bg-gradient-to-b from-[#fdfffc] to-[#f7f9ff]">
-      
-      <div className="container mx-auto max-w-7xl relative z-10">
-        <div className="flex flex-col lg:flex-row gap-12 md:gap-16 justify-between">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            viewport={{ once: true }}
-            className="flex flex-col space-y-8"
-          >
-            <div className="space-y-4">
-              
-              <h2 className="text-3xl md:text-5xl lg:text-[64px] font-bold text-[#0d0c34] leading-tight max-w-[578px]">
-                Mutual Fund Tools &amp; Calculators
-              </h2>
-              
-              <p className="text-gray-600 text-lg max-w-xl">
-                Leverage our powerful calculators to plan your investments and visualize potential returns 
-                over time based on historical performance data.
-              </p>
-            </div>
-
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <Button
-                className="rounded-full bg-[#0d0c34] text-white hover:bg-[#09ffec] hover:text-[#0d0c34] font-medium w-fit px-6 py-6 text-base flex items-center gap-2 transition-all duration-300 shadow-lg hover:shadow-xl"
-              >
-                <span>See all Tools &amp; Calculators</span>
-                <ArrowRight className="w-5 h-5" />
-              </Button>
-            </motion.div>
-          </motion.div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-full lg:max-w-[900px]">
-            {calculators.map((calculator, index) => (
-              <motion.div
-                key={calculator.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                className="w-full"
-              >
-                <Card className="w-full h-full bg-white rounded-2xl overflow-hidden border-none shadow-[0px_8px_30px_rgba(0,0,0,0.06)] hover:shadow-[0px_16px_40px_rgba(0,0,0,0.1)] transition-all duration-300">
-                  <CardContent className="p-6 md:p-8 h-full flex flex-col">
-                    <div className="flex flex-col gap-6 h-full">
-                      <div className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br ${calculator.color}`}>
-                        {calculator.icon}
-                      </div>
-
-                      <div className="flex flex-col gap-3 flex-grow">
-                        <h3 className="font-semibold text-[#0d0c34] text-xl md:text-2xl">
-                          {calculator.title}
-                        </h3>
-                        <p className="font-normal text-gray-600 text-sm md:text-base leading-relaxed">
-                          {calculator.description}
-                        </p>
-                      </div>
-
-                      <motion.div
-                        whileHover={{ x: 5 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        <Button
-                          className="rounded-full bg-[#f7f9ff] hover:bg-[#09ffec] text-[#0d0c34] hover:text-[#0d0c34] font-medium text-sm md:text-base w-full flex items-center justify-center gap-2 py-5"
-                        >
-                          <span>Calculate now</span>
-                          <ArrowRight className="w-4 h-4" />
-                        </Button>
-                      </motion.div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
+    React.createElement(
+      "section",
+      { className: "w-full py-16 md:py-32 px-4 md:px-8 relative overflow-hidden bg-gradient-to-b from-[#fdfffc] to-[#f7f9ff]" },
+      React.createElement(
+        "div",
+        { className: "container mx-auto max-w-7xl relative z-10" },
+        React.createElement(
+          "div",
+          { className: "flex flex-col lg:flex-row gap-12 md:gap-16 justify-between" },
+          React.createElement(
+            motion.div,
+            {
+              initial: { opacity: 0, y: 20 },
+              whileInView: { opacity: 1, y: 0 },
+              transition: { duration: 0.7 },
+              viewport: { once: true },
+              className: "flex flex-col space-y-8",
+            },
+            React.createElement(
+              "div",
+              { className: "space-y-4" },
+              React.createElement(
+                "h2",
+                { className: "text-3xl md:text-5xl lg:text-[64px] font-bold text-[#0d0c34] leading-tight max-w-[578px]" },
+                "Mutual Fund Tools & Calculators"
+              ),
+              React.createElement(
+                "p",
+                { className: "text-gray-600 text-lg max-w-xl" },
+                "Leverage our powerful calculators to plan your investments and visualize potential returns over time based on historical performance data."
+              )
+            ),
+            React.createElement(
+              motion.div,
+              { whileHover: { scale: 1.05 }, whileTap: { scale: 0.98 } },
+              React.createElement(
+                Button,
+                {
+                  className: "rounded-full bg-[#0d0c34] text-white hover:bg-[#09ffec] hover:text-[#0d0c34] font-medium w-fit px-6 py-6 text-base flex items-center gap-2 transition-all duration-300 shadow-lg hover:shadow-xl",
+                },
+                React.createElement("span", null, "See all Tools & Calculators"),
+                React.createElement(ArrowRight, { className: "w-5 h-5" })
+              )
+            )
+          ),
+          React.createElement(
+            "div",
+            { className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-full lg:max-w-[900px]" },
+            calculators.map((calculator, index) =>
+              React.createElement(
+                motion.div,
+                {
+                  key: calculator.id,
+                  initial: { opacity: 0, y: 20 },
+                  whileInView: { opacity: 1, y: 0 },
+                  transition: { duration: 0.5, delay: index * 0.1 },
+                  viewport: { once: true },
+                  whileHover: { y: -8, transition: { duration: 0.3 } },
+                  className: "w-full",
+                },
+                React.createElement(
+                  Card,
+                  {
+                    className: "w-full h-full bg-white rounded-2xl overflow-hidden border-none shadow-[0px_8px_30px_rgba(0,0,0,0.06)] hover:shadow-[0px_16px_40px_rgba(0,0,0,0.1)] transition-all duration-300",
+                  },
+                  React.createElement(
+                    CardContent,
+                    { className: "p-6 md:p-8 h-full flex flex-col" },
+                    React.createElement(
+                      "div",
+                      { className: "flex flex-col gap-6 h-full" },
+                      React.createElement(
+                        "div",
+                        {
+                          className: `inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br ${calculator.color}`,
+                        },
+                        calculator.icon
+                      ),
+                      React.createElement(
+                        "div",
+                        { className: "flex flex-col gap-3 flex-grow" },
+                        React.createElement(
+                          "h3",
+                          { className: "font-semibold text-[#0d0c34] text-xl md:text-2xl" },
+                          calculator.title
+                        ),
+                        React.createElement(
+                          "p",
+                          { className: "font-normal text-gray-600 text-sm md:text-base leading-relaxed" },
+                          calculator.description
+                        )
+                      ),
+                      React.createElement(
+                        motion.div,
+                        { whileHover: { x: 5 }, whileTap: { scale: 0.98 } },
+                        React.createElement(
+                          Button,
+                          {
+                            className: "rounded-full bg-[#f7f9ff] hover:bg-[#09ffec] text-[#0d0c34] hover:text-[#0d0c34] font-medium text-sm md:text-base w-full flex items-center justify-center gap-2 py-5",
+                          },
+                          React.createElement("span", null, "Calculate now"),
+                          React.createElement(ArrowRight, { className: "w-4 h-4" })
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    )
   );
 };

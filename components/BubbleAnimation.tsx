@@ -194,9 +194,8 @@ export const BubbleAnimation: React.FC<BubbleContainerProps> = ({ facts, myths }
   
   // Function to find a non-overlapping position
   const findAvailablePosition = (bubbleSize: number) => {
-    const bubbleWidth = bubbleSize / window.innerWidth * 100;
     let attempts = 0;
-    let x;
+    let x: number = 0; // Initialize x with a default value
     let overlapping = true;
     
     while (overlapping && attempts < 20) {
@@ -245,7 +244,7 @@ export const BubbleAnimation: React.FC<BubbleContainerProps> = ({ facts, myths }
       const baseSize = Math.min(Math.max(content.length * 2 + 80, 100), 200);
       
       // Find a position that doesn't overlap with existing bubbles
-      const position = findAvailablePosition(baseSize);
+      const position = { ...findAvailablePosition(baseSize), y: 0 }; // Add a default y value
       
       setBubbles(prev => [
         ...prev, 
@@ -273,7 +272,7 @@ export const BubbleAnimation: React.FC<BubbleContainerProps> = ({ facts, myths }
         clearInterval(timerRef.current);
       }
     };
-  }, [facts, myths]);
+  }, [facts, myths, bubbles.length]);
   
   // Remove bubbles that have completed their animation
   const removeBubble = (id: string) => {

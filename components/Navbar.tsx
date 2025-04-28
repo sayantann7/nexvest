@@ -1,4 +1,5 @@
 "use client";
+import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
@@ -164,10 +165,12 @@ function Navbar() {
 
             {!isMobileView && (
                 <button className="flex items-center space-x-2 bg-white/10 px-4 py-2 rounded-full">
-                    <img
+                    <Image
                         src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=faces"
                         alt="Profile"
                         className="w-8 h-8 rounded-full"
+                        width={32}
+                        height={32}
                     />
                     <span className="hidden md:inline">My Account</span>
                 </button>
@@ -222,10 +225,12 @@ function Navbar() {
                                 {/* Account Section */}
                                 <div className="mt-auto border-t border-white/10 px-6 py-4">
                                     <button className="w-full flex items-center space-x-3 hover:text-yellow-400 transition-colors">
-                                        <img
+                                        <Image
                                             src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=faces"
                                             alt="Profile"
                                             className="w-8 h-8 rounded-full"
+                                            width={32}
+                                            height={32}
                                         />
                                         <span className="text-lg">My Account</span>
                                     </button>

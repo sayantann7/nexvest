@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardContent } from "../../components/ui/card";
 import { motion } from "framer-motion";
 
-export const InvestmentMethodsSection = (): JSX.Element => {
+export const InvestmentMethodsSection = (): React.ReactElement => {
   const investmentMethods = [
     {
       title: "SIP (Systematic Investment Plan)",

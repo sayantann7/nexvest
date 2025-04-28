@@ -1,5 +1,6 @@
 "use client";
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 function Stats() {
 
@@ -61,10 +62,12 @@ function Stats() {
                         transition={{ duration: 0.8 }}
                         className="relative mb-0 w-full flex justify-center items-center"
                     >
-                        <img
+                        <Image
                             src="/map.png"
                             alt="India Map"
                             className="w-1/2 h-1/2 object-contain mx-auto my-0 p-0 min-w-[300px] min-h-[300px] max-w-[500px] max-h-[500px]"
+                            width={500}
+                            height={500}
                         />
                     </motion.div>
 

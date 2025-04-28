@@ -439,7 +439,7 @@ const indexFundTypes = [
 
 
 
-export const TypesOfMutualFundsSection = (): JSX.Element => {
+export const TypesOfMutualFundsSection = (): React.ReactElement => {
   // Animation variants for staggered animations
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -508,15 +508,7 @@ export const TypesOfMutualFundsSection = (): JSX.Element => {
                         style={{ backgroundImage: `url(${fund.logo})` }}
                       />
                       <div className="ml-3.5 font-medium text-[#222222] text-[15px] leading-5">
-                        {fund.twoLines ? (
-                          <>
-                            {fund.name.split(" ").slice(0, -1).join(" ")}
-                            <br />
-                            <span className="text-[#666]">{fund.name.split(" ").slice(-1)[0]}</span>
-                          </>
-                        ) : (
-                          fund.name
-                        )}
+                        {fund.name}
                       </div>
                     </div>
                   </div>
@@ -569,7 +561,6 @@ export const TypesOfMutualFundsSection = (): JSX.Element => {
     title,
     description,
     types,
-    sectionIndex,
   }: {
     title: string;
     description: React.ReactNode;

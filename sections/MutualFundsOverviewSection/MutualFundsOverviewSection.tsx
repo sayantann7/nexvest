@@ -4,7 +4,7 @@ import { Button } from "../../components/ui/button";
 import { motion } from "framer-motion";
 import { BarChart3, PiggyBank, TrendingUp, Users } from "lucide-react";
 
-export const MutualFundsOverviewSection = (): JSX.Element => {
+export const MutualFundsOverviewSection = (): React.ReactElement => {
   const benefits = [
     {
       icon: <Users className="w-10 h-10 text-[#09ffec]" />,
@@ -105,7 +105,7 @@ export const MutualFundsOverviewSection = (): JSX.Element => {
 
                   <div className="mt-2">
                     <p className="text-[15px] font-normal text-gray-300 leading-relaxed mb-4">
-                      The fund manager makes investment decisions based on the fund's objectives, aiming to generate returns for all investors, who share in the profits or losses proportionally to their investment.
+                      The fund manager makes investment decisions based on the fund&apos;s objectives, aiming to generate returns for all investors, who share in the profits or losses proportionally to their investment.
                     </p>
                   </div>
                 </div>

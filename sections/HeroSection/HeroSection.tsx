@@ -3,7 +3,7 @@ import React from "react";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 
-export const HeroSection = (): JSX.Element => {
+export const HeroSection = (): React.ReactElement => {
   return (
     <section 
       className="relative w-full min-h-[400px] md:h-[651px] flex items-center overflow-hidden"

@@ -1,31 +1,76 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, Phone, X } from 'lucide-react';
 import { Button } from './ui/button';
+import { vapi } from '@/lib/vapi.sdk';
 
 type ChatCallBotProps = Record<string, unknown>;
 
-const ChatCallBot: React.FC<ChatCallBotProps> = () => {
+enum CallStatus {
+  INACTIVE = "INACTIVE",
+  CONNECTING = "CONNECTING",
+  ACTIVE = "ACTIVE",
+  FINISHED = "FINISHED",
+}
+
+const ChatCallBot: React.FC<ChatCallBotProps> = (): React.ReactElement => {
+  const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
   const [isOpen, setIsOpen] = useState(false);
-  const [isCallActive, setIsCallActive] = useState(false);
 
   const toggleOpen = () => {
     setIsOpen(!isOpen);
   };
 
-  const startCall = () => {
-    setIsCallActive(true);
-    // Here you would integrate with Vapi API
-    console.log("Initiating call with Vapi API AI Voice Agent");
-    // Add your Vapi API integration code here
+  useEffect(() => {
+    const onCallStart = () => {
+      setCallStatus(CallStatus.ACTIVE);
+    };
+
+    const onCallEnd = () => {
+      setCallStatus(CallStatus.FINISHED);
+      setTimeout(() => {
+        setCallStatus(CallStatus.INACTIVE);
+      }, 1000);
+    };
+
+    const onError = (error: Error) => {
+      console.error("Vapi error:", error);
+      setCallStatus(CallStatus.FINISHED);
+    };
+
+    vapi.on("call-start", onCallStart);
+    vapi.on("call-end", onCallEnd);
+    vapi.on("error", onError);
+
+    return () => {
+      vapi.off("call-start", onCallStart);
+      vapi.off("call-end", onCallEnd);
+      vapi.off("error", onError);
+    };
+  }, []);
+
+  const handleCall = async () => {
+    try {
+      setCallStatus(CallStatus.CONNECTING);
+      await vapi.start(process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!);
+    } catch (error) {
+      console.error("Failed to start call:", error);
+      setCallStatus(CallStatus.INACTIVE);
+    }
   };
 
-  const endCall = () => {
-    setIsCallActive(false);
-    // Add code to disconnect the Vapi call
+  const handleDisconnect = async () => {
+    try {
+      await vapi.stop();
+    } catch (error) {
+      console.error("Failed to stop call:", error);
+      setCallStatus(CallStatus.INACTIVE);
+    }
   };
+
+  const isCallActive = callStatus === CallStatus.ACTIVE || callStatus === CallStatus.CONNECTING;
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
@@ -62,11 +107,13 @@ const ChatCallBot: React.FC<ChatCallBotProps> = () => {
                     </div>
                   </div>
                   <p className="text-center mb-4 text-gray-700">
-                    Call in progress with NexVest AI Assistant...
+                    {callStatus === CallStatus.CONNECTING 
+                      ? "Connecting to NexVest AI Assistant..." 
+                      : "Call in progress with NexVest AI Assistant..."}
                   </p>
                   <Button
                     variant="destructive"
-                    onClick={endCall}
+                    onClick={handleDisconnect}
                     className="rounded-full px-6"
                   >
                     End Call
@@ -75,13 +122,13 @@ const ChatCallBot: React.FC<ChatCallBotProps> = () => {
               ) : (
                 <>
                   <div className="mb-4 w-16 h-16 rounded-full bg-[#0D0C34]/10 flex items-center justify-center">
-                    <Phone className="w-8 h-8 text-[#0D0C34]" />
+                    <Phone className="w-8 h-8 text-white" />
                   </div>
                   <p className="text-center mb-4 text-gray-700">
                     Have questions about NexVest? Talk to our AI assistant!
                   </p>
                   <Button
-                    onClick={startCall}
+                    onClick={handleCall}
                     className="bg-[#0D0C34] hover:bg-[#0D0C34]/90 rounded-full px-6 flex items-center text-white"
                   >
                     <Phone className="w-4 h-4 mr-2 text-white" /> Start Voice Call
@@ -96,11 +143,11 @@ const ChatCallBot: React.FC<ChatCallBotProps> = () => {
       <motion.div
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className={`rounded-full shadow-lg cursor-pointer flex items-center justify-center px-4 py-3 ${isOpen ? 'bg-white' : 'bg-white'}`}
+        className="rounded-full shadow-lg cursor-pointer flex items-center justify-center px-4 py-3 bg-white"
         onClick={toggleOpen}
       >
-        <MessageCircle className={`w-5 h-5 mr-2 ${isOpen ? 'text-[#0D0C34]' : 'text-[#0D0C34]'}`} />
-        <span className={`font-medium ${isOpen ? 'text-[#0D0C34]' : 'text-[#0D0C34]'}`}>Ask AI</span>
+        <MessageCircle className="w-5 h-5 mr-2 text-[#0D0C34]" />
+        <span className="font-medium text-[#0D0C34]">Ask AI</span>
       </motion.div>
     </div>
   );

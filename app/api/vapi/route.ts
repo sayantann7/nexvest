@@ -1,9 +1,16 @@
+import { PrismaClient } from "@/lib/generated/prisma";
+
 export async function POST(request: Request) {
-    const { fullname, phoneNumber, query } = await request.json();
-
     try {
-        console.log(fullname, phoneNumber, query);
-
+        const { fullName, phoneNumber, query } = await request.json();
+        const prisma = new PrismaClient();
+        await prisma.query.create({
+            data: {
+                fullName: fullName,
+                phoneNumber: phoneNumber,
+                query: query
+            }
+        })
         return Response.json({ success: true }, { status: 200 });
     } catch (error) {
         console.error("Error:", error);

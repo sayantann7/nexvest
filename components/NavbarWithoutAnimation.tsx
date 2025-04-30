@@ -5,28 +5,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { BarChart2, ChevronDown, Menu, X } from 'lucide-react';
 function NavbarWithoutAnimation() {
-
-    const [showProductsDropdown, setShowProductsDropdown] = useState(false);
     const [showResourcesDropdown, setShowResourcesDropdown] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isMobileView, setIsMobileView] = useState(false);
 
-    const productsTimeoutRef = useRef<number | null>(null);
     const resourcesTimeoutRef = useRef<number | null>(null);
-
-    const handleProductsMouseEnter = () => {
-        if (productsTimeoutRef.current) {
-            window.clearTimeout(productsTimeoutRef.current);
-            productsTimeoutRef.current = null;
-        }
-        setShowProductsDropdown(true);
-    };
-
-    const handleProductsMouseLeave = () => {
-        productsTimeoutRef.current = window.setTimeout(() => {
-            setShowProductsDropdown(false);
-        }, 1000); // 1000ms = 1 second delay
-    };
 
     // Function to handle Resources dropdown mouse events
     const handleResourcesMouseEnter = () => {
@@ -44,20 +27,6 @@ function NavbarWithoutAnimation() {
     };
 
     //
-
-    const handleAlreadyEnteredProductsMouseEnter = () => {
-        if (productsTimeoutRef.current) {
-            window.clearTimeout(productsTimeoutRef.current);
-            productsTimeoutRef.current = null;
-        }
-        setShowProductsDropdown(true);
-    };
-
-    const handleAlreadyEnteredProductsMouseLeave = () => {
-        productsTimeoutRef.current = window.setTimeout(() => {
-            setShowProductsDropdown(false);
-        }, 100); // 1000ms = 1 second delay
-    };
 
     // Function to handle Resources dropdown mouse events
     const handleAlreadyEnteredResourcesMouseEnter = () => {
@@ -100,28 +69,7 @@ function NavbarWithoutAnimation() {
 
                 <Link href="/personality-test" className="hover:text-[#0AFFFF] transition-colors">Personality Test</Link>
 
-                {/* Products Dropdown */}
-                <div className="relative">
-                    <button
-                        className="flex items-center space-x-1 hover:text-[#0AFFFF] transition-colors"
-                        onMouseEnter={handleProductsMouseEnter}
-                        onMouseLeave={handleProductsMouseLeave}
-                    >
-                        <span>Products</span>
-                        <ChevronDown className="w-4 h-4" />
-                    </button>
-                    {showProductsDropdown && (
-                        <div
-                            className="absolute top-full left-0 mt-2 w-48 bg-[#0D0C34] rounded-lg shadow-lg py-2 z-50"
-                            onMouseEnter={handleAlreadyEnteredProductsMouseEnter}
-                            onMouseLeave={handleAlreadyEnteredProductsMouseLeave}
-                        >
-                            <a href="#" className="block px-4 py-2 hover:bg-[#0D0C34] hover:text-[#0AFFFF]">Trading Platform</a>
-                            <a href="#" className="block px-4 py-2 hover:bg-[#0D0C34] hover:text-[#0AFFFF]">Market Analysis</a>
-                            <a href="#" className="block px-4 py-2 hover:bg-[#0D0C34] hover:text-[#0AFFFF]">Portfolio Management</a>
-                        </div>
-                    )}
-                </div>
+                <Link href="/unlisted-shares" className="hover:text-[#0AFFFF] transition-colors">Unlisted Shares</Link>
 
                 {/* Resources Dropdown */}
                 <div className="relative">
@@ -200,14 +148,7 @@ function NavbarWithoutAnimation() {
                                     <Link href="/" className="text-lg hover:text-yellow-400 transition-colors">Home</Link>
                                     <Link href="/mutual-funds" className="text-lg hover:text-yellow-400 transition-colors">Mutual Funds</Link>
                                     <Link href="/personality-test" className="text-lg hover:text-yellow-400 transition-colors">Personality Test</Link>
-                                    <div className="space-y-4">
-                                        <p className="text-lg font-semibold">Products</p>
-                                        <div className="pl-4 flex flex-col space-y-3">
-                                            <a href="#" className="hover:text-yellow-400 transition-colors">Trading Platform</a>
-                                            <a href="#" className="hover:text-yellow-400 transition-colors">Market Analysis</a>
-                                            <a href="#" className="hover:text-yellow-400 transition-colors">Portfolio Management</a>
-                                        </div>
-                                    </div>
+                                    <Link href="/unlisted-shares" className="hover:text-[#0AFFFF] transition-colors">Unlisted Shares</Link>
                                     <div className="space-y-4">
                                         <p className="text-lg font-semibold">Resources</p>
                                         <div className="pl-4 flex flex-col space-y-3">

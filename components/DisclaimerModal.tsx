@@ -76,7 +76,7 @@ const DisclaimerModal: React.FC = () => {
                       Website Under Development
                     </p>
                     <p className="text-white/70 text-sm leading-relaxed">
-                      We're working hard to bring you the full NexVest experience. The complete version will be live soon with all features and services.
+                      We&apos;re working hard to bring you the full NexVest experience. The complete version will be live soon with all features and services.
                     </p>
                   </div>
                 </div>

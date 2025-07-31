@@ -7,19 +7,10 @@ import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 
 const DisclaimerModal: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    // Show modal on first load
-    const hasSeenDisclaimer = localStorage.getItem('nexvest-disclaimer-seen');
-    if (!hasSeenDisclaimer) {
-      setIsOpen(true);
-    }
-  }, []);
+  const [isOpen, setIsOpen] = useState(true);
 
   const handleClose = () => {
     setIsOpen(false);
-    localStorage.setItem('nexvest-disclaimer-seen', 'true');
   };
 
   const handleEmailClick = () => {

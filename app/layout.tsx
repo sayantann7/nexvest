@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ChatCallBot from '@/components/ChatCallBot';
+import DisclaimerModal from '@/components/DisclaimerModal';
 
 export const metadata: Metadata = {
   title: "NexVest",
@@ -17,6 +18,7 @@ export default function RootLayout({
       <body>
         {children}
         <ChatCallBot />
+        <DisclaimerModal />
       </body>
     </html>
   );

@@ -63,7 +63,7 @@ const ChatCallBot: React.FC<ChatCallBotProps> = (): React.ReactElement => {
       if (data.reply) {
         setMessages(prev => [...prev, { role: 'assistant', content: data.reply }]);
       }
-    } catch (e) {
+  } catch {
       setMessages(prev => [...prev, { role: 'assistant', content: 'Sorry, I encountered a problem processing that. Please try again.' }]);
     } finally {
       setLoadingReply(false);

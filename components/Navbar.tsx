@@ -1,6 +1,5 @@
 "use client";
-import Image from 'next/image';
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { BarChart2, Menu, X } from 'lucide-react';
@@ -8,15 +7,7 @@ import WelcomeAnimation from "../components/WelcomeAnimation";
 
 function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [isMobileView, setIsMobileView] = useState(false);
-
-    // Track viewport width for conditional mobile UI behavior (unchanged logic)
-    useEffect(() => {
-        const update = () => setIsMobileView(window.innerWidth < 768);
-        update();
-        window.addEventListener('resize', update);
-        return () => window.removeEventListener('resize', update);
-    }, []);
+    // Removed unused isMobileView state & effect
 
     return (
         <nav className="px-6 py-4 flex items-center justify-between relative bg-[#0D0C34] z-50">

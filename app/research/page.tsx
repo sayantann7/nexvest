@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Filter, ExternalLink } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 
 interface ApiArticle {
   id: string;
@@ -33,8 +33,9 @@ const ResearchPage: React.FC = () => {
       // Sort newest first
       data.sort((a,b)=> new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
       setArticles(data);
-    } catch(e:any){
-      setError(e.message || 'Unexpected error');
+    } catch(e){
+      const message = e instanceof Error ? e.message : 'Unexpected error';
+      setError(message);
     } finally {
       setLoading(false);
     }
@@ -82,7 +83,7 @@ const ResearchPage: React.FC = () => {
           )}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((article, idx) => {
-              const Wrapper: any = article.link ? 'a' : 'div';
+              const Wrapper: 'a' | 'div' = article.link ? 'a' : 'div';
               return (
               <motion.div key={article.id} className="group" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: idx * 0.04 }}>
                 <Wrapper {...(article.link ? { href: article.link, target: '_blank', rel: 'noopener noreferrer' } : {})} className="block focus:outline-none focus:ring-2 focus:ring-blue-400 h-full">

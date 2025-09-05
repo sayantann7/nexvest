@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -27,29 +27,14 @@ interface Result {
     color: string;
 }
 
-// Investing facts and myths
-const investingFacts = [
-    "Time in the market beats timing the market",
-    "Diversification reduces risk",
-    "Compound interest is the 8th wonder of the world",
-    "Start investing early for better returns",
-    "Long-term investing generally outperforms short-term trading"
-];
-
-const investingMyths = [
-    "You need a lot of money to start investing",
-    "Investing is the same as gambling",
-    "You need to time the market perfectly",
-    "You should always buy the dip",
-    "Only experts can succeed at investing"
-];
+// (Previously had investing facts & myths arrays here – removed because unused)
 
 function PersonalityTest() {
     // Refs for scrolling
     const testSectionRef = useRef<HTMLDivElement>(null);
     const resultsSectionRef = useRef<HTMLDivElement>(null);
     const educationSectionRef = useRef<HTMLDivElement>(null);
-    const bubblesContainerRef = useRef<HTMLDivElement>(null);
+    // Bubble animation ref removed (feature disabled)
 
     // State management
     const [isTestStarted, setIsTestStarted] = useState(false);
@@ -205,30 +190,7 @@ function PersonalityTest() {
     };
 
     // Function to handle scroll observation for elements
-    const useIntersectionObserver = (ref: React.RefObject<HTMLElement>, callback: () => void) => {
-        useEffect(() => {
-            const observer = new IntersectionObserver(
-                ([entry]) => {
-                    if (entry.isIntersecting) {
-                        callback();
-                    }
-                },
-                { threshold: 0.3 }
-            );
-
-            const currentRef = ref.current; // Store ref value in variable
-
-            if (currentRef) {
-                observer.observe(currentRef);
-            }
-
-            return () => {
-                if (currentRef) { // Use stored value
-                    observer.unobserve(currentRef);
-                }
-            };
-        }, [ref, callback]);
-    };
+    // Custom intersection observer hook removed (was unused after disabling bubbles)
 
     // Trigger bubble animations when education section is visible
     // Replace the existing useIntersectionObserver call (around line 234)

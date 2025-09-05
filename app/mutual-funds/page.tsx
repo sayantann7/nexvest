@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { AnimatedSection } from "@/components/AnimatedSection";
-import { BackgroundSection } from "@/sections/BackgroundSection/BackgroundSection";
 import { HeroSection } from "@/sections/HeroSection";
 import { MutualFundsOverviewSection } from "@/sections/MutualFundsOverviewSection/MutualFundsOverviewSection";
 import InvestmentTypesInfo from "@/components/InvestmentTypesInfo";

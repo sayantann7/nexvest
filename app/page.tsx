@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import Features from "@/components/Features";
 import InfoSection from "@/components/InfoSection";
 import Stats from "@/components/Stats";
+import InvestmentPersonalityTest from "@/components/InvestmentPersonalityTest";
 
 function Home() {
 
@@ -26,7 +27,10 @@ function Home() {
       <InfoSection />
 
       {/* Global Stats Section */}
-      <Stats />
+  <Stats />
+
+  {/* Investment Personality Test Moved from personality-test page */}
+  <InvestmentPersonalityTest />
 
     </div>
   );

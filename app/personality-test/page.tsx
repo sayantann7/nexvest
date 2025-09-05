@@ -7,7 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { ArrowRight, Check, ChevronRight, Brain, BarChart3, AreaChart, LineChart } from 'lucide-react';
 import NavbarWithoutAnimation from '@/components/NavbarWithoutAnimation';
-import BubbleAnimation from '@/components/BubbleAnimation';
+// import BubbleAnimation from '@/components/BubbleAnimation'; // Commented out as per requirement
 
 // Types for our questions and results
 interface Question {
@@ -57,7 +57,7 @@ function PersonalityTest() {
     const [answers, setAnswers] = useState<number[]>([]);
     const [result, setResult] = useState<Result | null>(null);
     const [progress, setProgress] = useState(0);
-    const [showBubbles, setShowBubbles] = useState(false);
+    // const [showBubbles, setShowBubbles] = useState(false); // Disabled bubble animation
 
     // Scroll handlers
     const scrollToSection = (ref: React.RefObject<HTMLDivElement | null>) => {
@@ -232,101 +232,13 @@ function PersonalityTest() {
 
     // Trigger bubble animations when education section is visible
     // Replace the existing useIntersectionObserver call (around line 234)
-    useIntersectionObserver(educationSectionRef as unknown as React.RefObject<HTMLElement>, () => {
-        setShowBubbles(true);
-    });
+    // useIntersectionObserver(educationSectionRef as unknown as React.RefObject<HTMLElement>, () => {
+    //     setShowBubbles(true);
+    // }); // Bubble observer disabled
 
     // Create bubble animations for the education section
-    useEffect(() => {
-        if (showBubbles && bubblesContainerRef.current) {
-            const container = bubblesContainerRef.current;
-            const createBubble = () => {
-                const bubble = document.createElement('div');
-                const isMyth = Math.random() > 0.5;
-                const content = isMyth
-                    ? investingMyths[Math.floor(Math.random() * investingMyths.length)]
-                    : investingFacts[Math.floor(Math.random() * investingFacts.length)];
-
-                bubble.className = `absolute rounded-full flex items-center justify-center text-center p-6 
-                          ${isMyth ? 'bg-[#FF6B6B]/80' : 'bg-[#1E3A8A]/80'} text-white text-sm font-medium
-                          shadow-lg`;
-
-                // Random size between 100px and 200px
-                const size = Math.random() * 100 + 100;
-                bubble.style.width = `${size}px`;
-                bubble.style.height = `${size}px`;
-
-                // Random position
-                const left = Math.random() * 80 + 10; // 10-90% of container width
-                bubble.style.left = `${left}%`;
-                bubble.style.bottom = '-100px';
-                bubble.style.zIndex = '10';
-
-                // Add content and icon
-                bubble.innerHTML = `
-          <div class="relative w-full h-full flex flex-col items-center justify-center">
-            <span class="absolute top-4 right-4">
-              ${isMyth ?
-                        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>' :
-                        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>'}
-            </span>
-            <p>${content}</p>
-            <span class="absolute bottom-4 text-xs opacity-70">${isMyth ? 'Myth' : 'Fact'}</span>
-          </div>
-        `;
-
-                container.appendChild(bubble);
-
-                // Animate upward
-                const animation = bubble.animate(
-                    [
-                        { transform: 'translateY(0) scale(1)', opacity: 0 },
-                        { transform: 'translateY(-100px) scale(1)', opacity: 1 },
-                        { transform: 'translateY(-300px) scale(1)', opacity: 1 },
-                        { transform: isMyth ? 'translateY(-500px) scale(1.5)' : 'translateY(-700px) scale(1)', opacity: isMyth ? 0 : 0.7 }
-                    ],
-                    {
-                        duration: isMyth ? 7000 : 12000,
-                        easing: 'ease-out'
-                    }
-                );
-
-                animation.onfinish = () => {
-                    if (bubble.parentNode === container) {
-                        container.removeChild(bubble);
-                    }
-                };
-
-                // If it's a myth, make it burst halfway through
-                if (isMyth) {
-                    setTimeout(() => {
-                        if (bubble.parentNode === container) {
-                            bubble.animate(
-                                [
-                                    { transform: 'scale(1)', opacity: 1 },
-                                    { transform: 'scale(1.5)', opacity: 0 }
-                                ],
-                                {
-                                    duration: 500,
-                                    fill: 'forwards'
-                                }
-                            );
-                        }
-                    }, 3500);
-                }
-            };
-
-            // Create a bubble every second
-            const interval = setInterval(createBubble, 2000);
-
-            return () => {
-                clearInterval(interval);
-                while (container.firstChild) {
-                    container.removeChild(container.firstChild);
-                }
-            };
-        }
-    }, [showBubbles]);
+    // Bubble animation effect commented out entirely.
+    // useEffect(() => { /* bubble animation removed per requirements */ }, [showBubbles]);
 
     return (
         <>
@@ -679,54 +591,12 @@ function PersonalityTest() {
                     </div>
                 </section>
 
-                {/* Education Section - Updated with Framer Motion Bubbles */}
-                <section
-                    ref={educationSectionRef}
-                    className="py-16 md:py-24 relative overflow-hidden bg-white"
-                >
-                    <div className="container mx-auto px-4 relative z-10">
-                        <motion.div
-                            initial={{ y: 20, opacity: 0 }}
-                            whileInView={{ y: 0, opacity: 1 }}
-                            transition={{ duration: 0.7 }}
-                            viewport={{ once: true }}
-                            className="text-center mb-16"
-                        >
-                            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-blue-900">
-                                NexVest helps you in <span className="text-[#1E3A8A]">bursting the myths</span> about investing
-                            </h2>
-                            <p className="text-blue-900 font-medium max-w-2xl mx-auto">
-                                Watch as investment myths pop while facts rise to the top. Understanding the
-                                difference between facts and myths is crucial for making informed investment decisions.
-                            </p>
-                        </motion.div>
-
-                        {/* Bubbles container with Framer Motion */}
-                        <div
-                            className="relative h-[500px] md:h-[600px] w-full overflow-hidden rounded-xl"
-                            style={{
-                                background: 'linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(240, 249, 255, 0.8) 100%)',
-                                boxShadow: 'inset 0 0 20px rgba(30, 58, 138, 0.1)'
-                            }}
-                        >
-                            {showBubbles && (
-                                <BubbleAnimation facts={investingFacts} myths={investingMyths} />
-                            )}
-                        </div>
-
-                        {/* Legend */}
-                        <div className="max-w-md mx-auto mt-8 flex justify-center gap-8">
-                            <div className="flex items-center">
-                                <div className="w-4 h-4 rounded-full bg-[#1E3A8A]/80 mr-2"></div>
-                                <span className="text-blue-900 font-semibold">Investment Facts</span>
-                            </div>
-                            <div className="flex items-center">
-                                <div className="w-4 h-4 rounded-full bg-[#FF6B6B]/80 mr-2"></div>
-                                <span className="text-blue-900 font-semibold">Investment Myths</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                {/* Education Section with bubbles commented out as per requirement */}
+                {false && (
+                    <section ref={educationSectionRef} className="py-16 md:py-24 relative overflow-hidden bg-white">
+                        {/* Original bubble animation section commented out */}
+                    </section>
+                )}
             </main>
         </>
     );

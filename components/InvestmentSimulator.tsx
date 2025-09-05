@@ -22,20 +22,21 @@ const InvestmentSimulator: React.FC<InvestmentSimulatorProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<'sip' | 'lumpsum'>('sip');
   const [inputValue, setInputValue] = useState<string>(monthlyInvestment.toLocaleString('en-IN'));
+  const [rate, setRate] = useState<number>(12); // dynamic rate of return
   
   // Quick add amounts for SIP
   const quickAddAmounts = [500, 1000, 5000, 10000];
   
   // Calculate the returns based on current input
-  const calculateReturns = (amount: number, years: number = 20, rate: number = 12): number => {
+  const calculateReturns = (amount: number, years: number = 20, rateParam: number = rate): number => {
     if (activeTab === 'sip') {
       // Monthly SIP compound calculation
-      const monthlyRate = rate / 12 / 100;
+      const monthlyRate = rateParam / 12 / 100;
       const months = years * 12;
       return amount * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
     } else {
       // Lumpsum compound calculation
-      return amount * Math.pow(1 + rate / 100, years);
+      return amount * Math.pow(1 + rateParam / 100, years);
     }
   };
   
@@ -49,10 +50,10 @@ const InvestmentSimulator: React.FC<InvestmentSimulatorProps> = ({
     const data = [];
     const currentAmount = parseFloat(inputValue.replace(/,/g, '')) || monthlyInvestment;
     
-    for (let year = 0; year <= 20; year += 1) {
+  for (let year = 0; year <= 20; year += 1) {
       data.push({
-        year,
-        value: calculateReturns(currentAmount, year) / 100000 // Convert to lakhs
+    year,
+    value: calculateReturns(currentAmount, year, rate) / 100000 // Convert to lakhs
       });
     }
     return data;
@@ -60,7 +61,9 @@ const InvestmentSimulator: React.FC<InvestmentSimulatorProps> = ({
   
   const chartData = generateChartData();
   const totalReturns = calculateReturns(
-    parseFloat(inputValue.replace(/,/g, '')) || monthlyInvestment
+    parseFloat(inputValue.replace(/,/g, '')) || monthlyInvestment,
+    20,
+    rate
   );
   
   // Handle amount change with validation
@@ -144,6 +147,28 @@ const InvestmentSimulator: React.FC<InvestmentSimulatorProps> = ({
             </div>
           </div>
           
+          {/* Rate of return slider */}
+          <div className="mb-8">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-3">
+              <label className="text-gray-300 text-sm lg:text-base font-medium">Expected annual return</label>
+              <div className="flex items-center gap-2 text-[#09ffec] font-semibold">
+                <span className="text-2xl">{rate}<span className="text-base ml-0.5">%</span></span>
+              </div>
+            </div>
+            <input
+              type="range"
+              min={4}
+              max={30}
+              step={0.5}
+              value={rate}
+              onChange={(e) => setRate(parseFloat(e.target.value))}
+              className="w-full accent-[#09ffec] cursor-pointer"
+            />
+            <div className="flex justify-between text-[10px] mt-1 text-gray-500">
+              <span>4%</span><span>12%</span><span>30%</span>
+            </div>
+          </div>
+
           {/* Chart - increased height on desktop */}
           <div className="h-52 lg:h-72 mb-6 lg:mb-10 flex-grow">
             <ResponsiveContainer width="100%" height="100%">
@@ -202,7 +227,7 @@ const InvestmentSimulator: React.FC<InvestmentSimulatorProps> = ({
           
           <div className="text-center text-xs lg:text-sm text-gray-400 mt-4 lg:mt-6">
             Note: This calculation assumes {activeTab === 'sip' ? 'monthly installments' : 'one-time investment'} with 
-            12% p.a. returns compounded {activeTab === 'sip' ? 'monthly' : 'annually'}.
+            {rate}% p.a. returns compounded {activeTab === 'sip' ? 'monthly' : 'annually'}. Adjust the slider to explore scenarios.
           </div>
         </div>
       </CardContent>

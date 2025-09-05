@@ -37,12 +37,16 @@ const StockTicker = () => {
   // Separate function just for data fetching
   const fetchStockData = async () => {
     try {
-      const response = await fetch('/example_response.json');
+      const response = await fetch('https://nexvest-stocks-service.sayantannandi13.workers.dev/stocks', {
+        // Prevent Next.js fetch caching to always get latest ticker data
+        cache: 'no-store'
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = await response.json();
       setStocks(data);
-      setLoading(false);
     } catch (error) {
       console.error('Error fetching stock data:', error);
+    } finally {
       setLoading(false);
     }
   };

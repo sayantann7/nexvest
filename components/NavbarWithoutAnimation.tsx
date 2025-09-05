@@ -67,9 +67,11 @@ function NavbarWithoutAnimation() {
 
                 <Link href="/mutual-funds" className="hover:text-[#0AFFFF] transition-colors">Mutual Funds</Link>
 
-                <Link href="/personality-test" className="hover:text-[#0AFFFF] transition-colors">Personality Test</Link>
+                {/* Personality Test link removed */}
 
                 <Link href="/unlisted-shares" className="hover:text-[#0AFFFF] transition-colors">Unlisted Shares</Link>
+
+                <Link href="/research" className="hover:text-[#0AFFFF] transition-colors">Research</Link>
 
                 {/* Resources Dropdown */}
                 <div className="relative">
@@ -147,8 +149,9 @@ function NavbarWithoutAnimation() {
                                 <div className="px-6 py-8 flex flex-col space-y-6 flex-grow">
                                     <Link href="/" className="text-lg hover:text-yellow-400 transition-colors">Home</Link>
                                     <Link href="/mutual-funds" className="text-lg hover:text-yellow-400 transition-colors">Mutual Funds</Link>
-                                    <Link href="/personality-test" className="text-lg hover:text-yellow-400 transition-colors">Personality Test</Link>
-                                    <Link href="/unlisted-shares" className="hover:text-[#0AFFFF] transition-colors">Unlisted Shares</Link>
+                                    {/* Personality Test link removed */}
+                                    <Link href="/unlisted-shares" className="text-lg hover:text-yellow-400 transition-colors">Unlisted Shares</Link>
+                                    <Link href="/research" className="text-lg hover:text-yellow-400 transition-colors">Research</Link>
                                     <div className="space-y-4">
                                         <p className="text-lg font-semibold">Resources</p>
                                         <div className="pl-4 flex flex-col space-y-3">

@@ -1,76 +1,81 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, Phone, X } from 'lucide-react';
+import { MessageCircle, Send, X, Loader2 } from 'lucide-react';
 import { Button } from './ui/button';
-import { vapi } from '@/lib/vapi.sdk';
 
 type ChatCallBotProps = Record<string, unknown>;
 
-enum CallStatus {
-  INACTIVE = "INACTIVE",
-  CONNECTING = "CONNECTING",
-  ACTIVE = "ACTIVE",
-  FINISHED = "FINISHED",
-}
+interface ChatMessage { role: 'system' | 'user' | 'assistant'; content: string; }
 
 const ChatCallBot: React.FC<ChatCallBotProps> = (): React.ReactElement => {
-  const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
   const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [input, setInput] = useState("");
+  const [loadingReply, setLoadingReply] = useState(false);
+  const bottomRef = useRef<HTMLDivElement | null>(null);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
 
-  const toggleOpen = () => {
-    setIsOpen(!isOpen);
-  };
-
+  // Initialize system prompt with personalization
   useEffect(() => {
-    const onCallStart = () => {
-      setCallStatus(CallStatus.ACTIVE);
-    };
+    if (messages.length === 0) {
+      let personalization = '';
+      try {
+        const saved = typeof window !== 'undefined' ? localStorage.getItem('nexvestDisclaimerUser') : null;
+        if (saved) {
+          const { name, email, phone } = JSON.parse(saved);
+          personalization = ` The user is named ${name || 'Guest'}${email ? ` (email: ${email})` : ''}${phone ? ` and phone number ${phone}` : ''}. Tailor responses politely using their name when appropriate.`;
+        }
+      } catch {}
+      const systemContent = `You are a polite, professional, and knowledgeable financial assistant for an investment firm.\nYour role is to explain financial concepts, investment products, market trends, and economic principles in a clear, concise and short way.\nMaintain a courteous and respectful tone at all times, avoiding unnecessary jargon unless the user asks for technical detail.\nBe transparent when you lack access to certain data and instead provide general, educational insights.\nYour goal is to empower users with financial knowledge, helping them feel confident and informed in their understanding of finance.${personalization} REMEMBER TO KEEP YOUR RESPONSES SHORT AND UNDER 300 CHARACTERS.`;
+      setMessages([{ role: 'system', content: systemContent }]);
+    }
+  }, [messages.length]);
 
-    const onCallEnd = () => {
-      setCallStatus(CallStatus.FINISHED);
-      setTimeout(() => {
-        setCallStatus(CallStatus.INACTIVE);
-      }, 1000);
-    };
+  // Auto-scroll only if user is near bottom
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const isNearBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 140; // px threshold
+    if (isNearBottom) {
+      requestAnimationFrame(() => {
+        el.scrollTop = el.scrollHeight;
+      });
+    }
+  }, [messages, loadingReply]);
 
-    const onError = (error: Error) => {
-      console.error("Vapi error:", error);
-      setCallStatus(CallStatus.FINISHED);
-    };
-
-    vapi.on("call-start", onCallStart);
-    vapi.on("call-end", onCallEnd);
-    vapi.on("error", onError);
-
-    return () => {
-      vapi.off("call-start", onCallStart);
-      vapi.off("call-end", onCallEnd);
-      vapi.off("error", onError);
-    };
-  }, []);
-
-  const handleCall = async () => {
+  const toggleOpen = () => setIsOpen(o => !o);
+  const sendMessage = async () => {
+    if (!input.trim() || loadingReply) return;
+    const userMsg: ChatMessage = { role: 'user', content: input.trim() };
+    setMessages(prev => [...prev, userMsg]);
+    setInput('');
+    setLoadingReply(true);
     try {
-      setCallStatus(CallStatus.CONNECTING);
-      await vapi.start(process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!);
-    } catch (error) {
-      console.error("Failed to start call:", error);
-      setCallStatus(CallStatus.INACTIVE);
+      const response = await fetch('https://nexvest-backend.sayantannandi13.workers.dev/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: [...messages, userMsg].map(m => ({ role: m.role, content: m.content })) })
+      });
+      if (!response.ok) throw new Error('Chat request failed');
+      const data = await response.json();
+      if (data.reply) {
+        setMessages(prev => [...prev, { role: 'assistant', content: data.reply }]);
+      }
+    } catch (e) {
+      setMessages(prev => [...prev, { role: 'assistant', content: 'Sorry, I encountered a problem processing that. Please try again.' }]);
+    } finally {
+      setLoadingReply(false);
     }
   };
 
-  const handleDisconnect = async () => {
-    try {
-      await vapi.stop();
-    } catch (error) {
-      console.error("Failed to stop call:", error);
-      setCallStatus(CallStatus.INACTIVE);
+  const handleKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
     }
   };
-
-  const isCallActive = callStatus === CallStatus.ACTIVE || callStatus === CallStatus.CONNECTING;
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
@@ -80,8 +85,8 @@ const ChatCallBot: React.FC<ChatCallBotProps> = (): React.ReactElement => {
             initial={{ opacity: 0, scale: 0.8, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 10 }}
-            className="mb-4 bg-white rounded-xl shadow-2xl overflow-hidden"
-            style={{ width: '320px' }}
+            className="mb-4 bg-white rounded-xl shadow-2xl flex flex-col overflow-hidden border border-gray-200/60 backdrop-blur-md"
+            style={{ width: '380px', maxWidth: '92vw', height: 'min(72vh, 640px)' }}
           >
             <div className="bg-[#0D0C34] p-4 flex justify-between items-center">
               <h3 className="text-white font-medium flex items-center">
@@ -97,44 +102,47 @@ const ChatCallBot: React.FC<ChatCallBotProps> = (): React.ReactElement => {
                 <X className="w-5 h-5" />
               </Button>
             </div>
-
-            <div className="p-6 bg-gray-50 min-h-[200px] flex flex-col justify-center items-center">
-              {isCallActive ? (
-                <>
-                  <div className="animate-pulse mb-4">
-                    <div className="w-16 h-16 rounded-full bg-[#09ffec]/20 flex items-center justify-center">
-                      <Phone className="w-8 h-8 text-[#09ffec]" />
+      <div className="flex-1 flex flex-col bg-gray-50 relative min-h-0">
+              <div
+                ref={scrollRef}
+        className="flex-1 overflow-y-auto px-4 py-5 space-y-4 text-sm custom-scrollbar pr-3 min-h-0"
+              >
+                {messages.filter(m=>m.role!== 'system').length === 0 && (
+                  <div className="text-gray-500 text-center text-xs opacity-80">Start the conversation by asking a question about investments or markets.</div>
+                )}
+                {messages.filter(m=>m.role!== 'system').map((m, idx) => (
+                  <div key={idx} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                    <div className={`max-w-[78%] rounded-xl px-4 py-2 leading-relaxed shadow-sm text-[13px] tracking-wide ${m.role === 'user' ? 'bg-gradient-to-br from-[#0D0C34] to-[#1e1b4b] text-white' : 'bg-white text-gray-800 border border-gray-200/70'} whitespace-pre-wrap`}>{m.content}</div>
+                  </div>
+                ))}
+                {loadingReply && (
+                  <div className="flex justify-start">
+                    <div className="max-w-[78%] rounded-xl px-3 py-2 bg-white text-gray-600 border border-gray-200 flex items-center gap-2 text-xs shadow-sm">
+                      <Loader2 className="w-3 h-3 animate-spin" /> Thinking...
                     </div>
                   </div>
-                  <p className="text-center mb-4 text-gray-700">
-                    {callStatus === CallStatus.CONNECTING 
-                      ? "Connecting to NexVest AI Assistant..." 
-                      : "Call in progress with NexVest AI Assistant..."}
-                  </p>
-                  <Button
-                    variant="destructive"
-                    onClick={handleDisconnect}
-                    className="rounded-full px-6"
-                  >
-                    End Call
+                )}
+                <div ref={bottomRef} />
+                {/* Gradients for visual depth */}
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-6 bg-gradient-to-b from-gray-50 to-transparent" />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-gray-50 to-transparent" />
+              </div>
+              <div className="border-t border-gray-200 p-3 bg-white">
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    placeholder="Type your message..."
+                    value={input}
+                    onChange={e=>setInput(e.target.value)}
+                    onKeyDown={handleKey}
+                    className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#0D0C34]/40 bg-white/90"
+                  />
+                  <Button onClick={sendMessage} disabled={loadingReply || !input.trim()} className="bg-[#0D0C34] hover:bg-[#0D0C34]/90 disabled:opacity-40 text-white px-3 py-2 h-auto flex items-center gap-1 rounded-md shadow">
+                    {loadingReply ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                    <span className="text-xs font-medium">Send</span>
                   </Button>
-                </>
-              ) : (
-                <>
-                  <div className="mb-4 w-16 h-16 rounded-full bg-[#0D0C34]/10 flex items-center justify-center">
-                    <Phone className="w-8 h-8 text-white" />
-                  </div>
-                  <p className="text-center mb-4 text-gray-700">
-                    Have questions about NexVest? Talk to our AI assistant!
-                  </p>
-                  <Button
-                    onClick={handleCall}
-                    className="bg-[#0D0C34] hover:bg-[#0D0C34]/90 rounded-full px-6 flex items-center text-white"
-                  >
-                    <Phone className="w-4 h-4 mr-2 text-white" /> Start Voice Call
-                  </Button>
-                </>
-              )}
+                </div>
+              </div>
             </div>
           </motion.div>
         )}
@@ -143,11 +151,11 @@ const ChatCallBot: React.FC<ChatCallBotProps> = (): React.ReactElement => {
       <motion.div
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="rounded-full shadow-lg cursor-pointer flex items-center justify-center px-4 py-3 bg-white"
+  className="rounded-full shadow-lg cursor-pointer flex items-center justify-center px-4 py-3 bg-white"
         onClick={toggleOpen}
       >
         <MessageCircle className="w-5 h-5 mr-2 text-[#0D0C34]" />
-        <span className="font-medium text-[#0D0C34]">Ask AI</span>
+  <span className="font-medium text-[#0D0C34]">Ask AI</span>
       </motion.div>
     </div>
   );

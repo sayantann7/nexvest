@@ -9,7 +9,7 @@ import NavbarWithoutAnimation from '@/components/NavbarWithoutAnimation';
 interface Share {
     title: string;
     logo_url: string | null;
-    price: string;
+    price: string; // retained in data but no longer displayed
     percentage_change: string;
 }
 
@@ -77,9 +77,9 @@ export default function UnlistedShares() {
     return (
         <>
             <NavbarWithoutAnimation />
-            <main className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
+            <main className="min-h-screen bg-white">
                 {/* Hero Section */}
-                <section className="bg-white dark:from-blue-900 dark:to-indigo-900 text-blue-900">
+                <section className="bg-white text-blue-900">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -108,10 +108,10 @@ export default function UnlistedShares() {
                                 placeholder="Search shares by name..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full p-4 pl-12 rounded-xl border border-gray-300 shadow-md focus:outline-none focus:ring-2 dark:bg-[#1E3A8A] dark:border-gray-700 dark:text-white dark:placeholder-white transition-all duration-300 text-white placeholder-white"
+                                className="w-full p-4 pl-12 rounded-xl border border-gray-300 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-300 bg-white text-gray-800 placeholder-gray-500 transition-all duration-300"
                             />
                             <svg
-                                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white"
+                                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500"
                                 width="20"
                                 height="20"
                                 fill="none"
@@ -141,7 +141,7 @@ export default function UnlistedShares() {
                                     <motion.div
                                         key={index}
                                         variants={itemVariants}
-                                        className="bg-white dark:bg-[#1E3A8A] rounded-xl shadow-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-xl duration-300"
+                                        className="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-xl duration-300"
                                     >
                                         <div className="p-6">
                                             <div className="flex items-start">
@@ -167,15 +167,14 @@ export default function UnlistedShares() {
                                                     )}
                                                 </div>
                                                 <div className="ml-4 flex-1">
-                                                    <h3 className="font-semibold text-lg mb-2 text-gray-800 dark:text-white line-clamp-2">{share.title}</h3>
-                                                    <div className="flex items-center justify-between mt-2">
-                                                        <span className="font-bold text-xl text-gray-900 dark:text-white">₹{share.price}</span>
+                                                    <h3 className="font-semibold text-lg mb-2 text-gray-800 line-clamp-2">{share.title}</h3>
+                                                    <div className="flex items-center justify-end mt-2">
                                                         <span
                                                             className={`px-2 py-1 rounded-lg text-sm font-medium ${share.percentage_change.startsWith('-')
-                                                                    ? 'bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-200'
+                                                                    ? 'bg-red-100 text-red-600'
                                                                     : share.percentage_change === '0%'
-                                                                        ? 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300'
-                                                                        : 'bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-200'
+                                                                        ? 'bg-gray-100 text-gray-600'
+                                                                        : 'bg-green-100 text-green-600'
                                                                 }`}
                                                         >
                                                             {share.percentage_change}

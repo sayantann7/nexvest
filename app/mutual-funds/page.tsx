@@ -53,9 +53,8 @@ function MutualFunds() {
             </div>
           </div>
 
-          <AnimatedSection delay={0.5}>
-            <TypesOfMutualFundsSection />
-          </AnimatedSection>
+          {/* Removed framer-motion AnimatedSection wrapper for TypesOfMutualFundsSection */}
+          <TypesOfMutualFundsSection />
 
           <AnimatedSection delay={0.6}>
             <BackgroundSection />

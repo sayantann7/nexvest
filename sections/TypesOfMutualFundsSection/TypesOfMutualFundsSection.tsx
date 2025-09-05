@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
-import { motion } from "framer-motion";
+// Removed framer-motion animations for a static experience
 import { ChevronRight, TrendingUp, BarChart2, PieChart, ChevronDown } from "lucide-react";
 
 const equityFundData = [
@@ -440,16 +440,7 @@ const indexFundTypes = [
 
 
 export const TypesOfMutualFundsSection = (): React.ReactElement => {
-  // Animation variants for staggered animations
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
+  // Removed animation variants previously used with framer-motion
   
   // Icons for fund types
   const fundTypeIcons = {
@@ -468,12 +459,7 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
     const displayedData = expanded ? data : data.slice(0, 5);
 
     return (
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-        className="w-full md:w-[532px]"
+      <div className="w-full md:w-[532px]"
       >
         <Card className="flex flex-col items-center gap-5 p-4 bg-white rounded-2xl overflow-hidden shadow-[0px_0px_30px_rgba(0,0,0,0.1)] transform transition-all duration-300 hover:shadow-[0px_0px_40px_rgba(0,0,0,0.15)] hover:-translate-y-1 border-none">
           <CardContent className="flex flex-col w-full items-start p-0">
@@ -493,12 +479,8 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
 
             <div className="flex flex-col items-start w-full">
               {displayedData.map((fund, index) => (
-                <motion.div 
+                <div 
                   key={index} 
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  viewport={{ once: true }}
                   className="flex flex-col md:flex-row w-full border-b border-[#f5f7ff] hover:bg-[#f9faff] transition-colors"
                 >
                   <div className="w-full md:w-[286px] py-4 px-3">
@@ -512,31 +494,21 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex justify-between items-center w-full md:w-auto">
+                  <div className="flex items-stretch w-full md:w-auto">
                     <div className="py-4 px-5 border-l border-[#f5f7ff] flex items-center justify-center">
                       <div className="font-bold text-[#0d0c34] text-base md:text-lg text-center">
                         {fund.returns}
                       </div>
                     </div>
-                    <div className="py-4 px-5 border-l border-[#f5f7ff] flex items-center justify-center">
-                      <Button
-                        className="h-[34px] rounded-full border-none bg-gradient-to-r from-[#0d0c34] to-[#1a1956] text-white hover:shadow-lg transition-all duration-300"
-                      >
-                        <span className="font-medium text-white text-sm">
-                          Invest
-                        </span>
-                      </Button>
-                    </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </CardContent>
 
           {data.length > 5 && (
-            <motion.div 
-              className="flex items-center justify-center mt-4 cursor-pointer group"
-              whileHover={{ scale: 1.05 }}
+            <div 
+              className="flex items-center justify-center mt-4 cursor-pointer group hover:scale-[1.02] transition-transform"
               onClick={() => setExpanded(!expanded)}
             >
               <span className="font-medium text-[#0d0c34] text-sm text-center mr-2">
@@ -550,10 +522,10 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
               ) : (
                 <ChevronRight className="w-4 h-4 text-[#09ffec] group-hover:translate-x-1 transition-transform duration-300" />
               )}
-            </motion.div>
+            </div>
           )}
         </Card>
-      </motion.div>
+      </div>
     );
   };
 
@@ -583,12 +555,7 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
     const cardHover = "hover:bg-[#1c2254]";
     
     return (
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-        className="flex flex-col w-full md:w-[625px] items-start gap-10"
+      <div className="flex flex-col w-full md:w-[625px] items-start gap-10"
       >
         <div className="flex flex-col items-start gap-6 w-full">
           <div className="flex items-center gap-3.5 w-full">
@@ -614,12 +581,8 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
             {types.map((type, index) => (
-              <motion.div 
+              <div 
                 key={index} 
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                viewport={{ once: true }}
                 className={`${cardBg} rounded-xl shadow-sm p-5 border ${cardBorder} ${cardHover} transition-shadow duration-300`}
               >
                 <h4 className={`font-semibold ${cardText} text-lg md:text-xl leading-normal border-b ${cardBorder} pb-2 mb-3`}>
@@ -628,23 +591,18 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
                 <p className={`font-normal ${cardDesc} text-sm md:text-[15px] leading-relaxed`}>
                   {type.description}
                 </p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
-      </motion.div>
+      </div>
     );
   };
 
   return (
     <section className="w-full bg-[#0D0C34] py-16 md:py-24 px-4 md:px-8 overflow-hidden">
       <div className="container mx-auto max-w-7xl">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
-          className="relative mb-16"
+    <div className="relative mb-16"
         >
           <h1 className="text-center font-bold text-white text-3xl md:text-[54px] leading-normal mb-4">
             Types of <span className="relative inline-block">
@@ -660,14 +618,9 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
           {/* Decorative elements */}
           <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#09ffec]/5 rounded-full blur-3xl"></div>
           <div className="absolute -bottom-20 -left-10 w-40 h-40 bg-[#09ffec]/10 rounded-full blur-3xl"></div>
-        </motion.div>
+    </div>
         
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="flex flex-col gap-28 md:gap-40"
+    <div className="flex flex-col gap-28 md:gap-40"
         >
           {/* First section - Equity */}
           <div className="relative">
@@ -787,8 +740,7 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
             {/* Decorative line */}
             <div className="absolute bottom-[-14rem] lg:bottom-[-5rem] left-1/2 transform -translate-x-1/2 w-[1px] h-[8rem] bg-gradient-to-b from-[#09ffec]/50 to-transparent"></div>
           </div>
-        </motion.div>
-        
+        </div>
       </div>
     </section>
   );

@@ -5,11 +5,14 @@ import Features from "@/components/Features";
 import InfoSection from "@/components/InfoSection";
 import Stats from "@/components/Stats";
 import InvestmentPersonalityTest from "@/components/InvestmentPersonalityTest";
+import WelcomeAnimation from "@/components/WelcomeAnimation";
 
 function Home() {
 
   return (
     <div className="min-h-screen bg-[#0D0C34] text-white">
+      {/* Full-screen Welcome overlay */}
+      <WelcomeAnimation />
 
       {/* Navbar */}
       <Navbar />
@@ -17,13 +20,13 @@ function Home() {
       {/* Stock Ticker Animation */}
       <StockTicker />
 
-      {/* Hero Section */}
+  {/* Hero Section */}
       <Hero />
 
-      {/* Why Choose Us Section */}
+  {/* Why Choose Us Section */}
       <Features />
 
-      {/* Build Something Great Section */}
+  {/* Build Something Great Section */}
       <InfoSection />
 
       {/* Global Stats Section */}

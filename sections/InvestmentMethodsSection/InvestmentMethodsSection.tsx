@@ -25,7 +25,7 @@ export const InvestmentMethodsSection = (): React.ReactElement => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-[64px] font-semibold text-white mb-20"
+          className="text-[64px] font-heading font-semibold text-white mb-20"
         >
           Ways to Invest in Mutual Funds
         </motion.h1>
@@ -41,10 +41,10 @@ export const InvestmentMethodsSection = (): React.ReactElement => {
               >
                 <Card className="bg-transparent rounded-[22px] shadow-glow-effect border-0">
                   <CardContent className="flex flex-col items-start gap-6 px-12 py-6">
-                    <h2 className="font-inter font-semibold text-white text-[40px]">
+                    <h2 className="font-heading font-semibold text-white text-[40px]">
                       {method.title}
                     </h2>
-                    <p className="font-inter font-normal text-white text-[15px] leading-6">
+                    <p className="font-normal text-white text-[15px] leading-6">
                       {method.description}
                     </p>
                   </CardContent>

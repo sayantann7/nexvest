@@ -3,22 +3,21 @@ import { motion } from 'framer-motion';
 
 function InfoSection() {
     return (
-        <div className="bg-[#0D0C34] py-20">
+        <section className="bg-[#0D0C34] py-16">
             <div className="container mx-auto px-6">
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 16 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
+                    className="text-center"
                 >
-                    <span className="text-gray-400">Launch faster</span>
-                    <h2 className="text-5xl font-bold mt-4 mb-6">Build something great</h2>
-                    <p className="text-xl text-gray-300 max-w-2xl">
-                        We&apos;ve done all the heavy lifting so you don&apos;t have to — get all the
-                        data you need to launch and grow your business faster.
-                    </p>
+                    <h2 className="font-heading text-4xl md:text-5xl font-bold mt-3 text-white">Trusted. Powerful. Honest.</h2>
+                    <p className="text-gray-300 mt-4 max-w-2xl mx-auto">We blend trust, technology and transparency to help your investments
+                        thrive. Trusted Capital — SEBI-compliant and transparent reporting. Powerful Tools — Algorithmic trading +
+                        analytics for Indian markets. Honest Advisory — Integrated financial & CA services under one roof.</p>
                 </motion.div>
             </div>
-        </div>
+        </section>
     )
 }
 

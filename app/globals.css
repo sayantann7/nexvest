@@ -1,7 +1,30 @@
 @import "tailwindcss";
 
+:root {
+  /* Fonts provided via next/font as CSS variables on <html> */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-heading: ui-sans-serif, system-ui, -apple-system, Segoe UI, Inter, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+
+  /* Dark base color tokens to match site */
+  --bg: 13 12 52;    /* #0D0C34 */
+  --fg: 255 255 255; /* white */
+  --muted: 148 163 184; /* slate-400 */
+  --ring: 148 163 184;  /* slate-400 */
+}
+
+html {
+  font-family: var(--font-sans);
+}
+
 body {
   overflow-x: hidden;
   padding: 0;
   margin: 0;
-} 
+  background-color: rgb(var(--bg));
+  color: rgb(var(--fg));
+}
+
+/* Utilities */
+.font-heading {
+  font-family: var(--font-heading);
+}

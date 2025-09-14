@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Link from "next/link";
+import { categoryFromFundTypeLabel } from "@/lib/mutualFundsData";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 // Removed framer-motion animations for a static experience
@@ -453,35 +455,34 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
   };
 
   const FundCard = ({ data, fundType }: { data: typeof equityFundData, fundType: string }) => {
-    const [expanded, setExpanded] = useState(false);
-    
-    // Display only first 5 items when not expanded
-    const displayedData = expanded ? data : data.slice(0, 5);
+  const [expanded] = useState(false);
+  // Always show a short preview here; full list moves to dedicated pages
+  const displayedData = data.slice(0, 5);
 
     return (
       <div className="w-full md:w-[532px]"
       >
-        <Card className="flex flex-col items-center gap-5 p-4 bg-white rounded-2xl overflow-hidden shadow-[0px_0px_30px_rgba(0,0,0,0.1)] transform transition-all duration-300 hover:shadow-[0px_0px_40px_rgba(0,0,0,0.15)] hover:-translate-y-1 border-none">
+        <Card className="flex flex-col items-center gap-5 p-4 bg-white rounded-2xl overflow-hidden shadow-[0px_0px_30px_rgba(0,0,0,0.1)] transform transition-all duration-300 hover:shadow-[0px_0px_40px_rgba(0,0,0,0.15)] hover:-translate-y-1 border border-gray-200 text-gray-200 bg-[#0d0c34]">
           <CardContent className="flex flex-col w-full items-start p-0">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 relative w-full border-b border-gray-100 pb-4 mb-2">
               <div className="flex items-center gap-2">
                 <div className="bg-gradient-to-r from-[#0d0c34] to-[#1a1956] p-2 rounded-lg">
                   {fundTypeIcons[fundType as keyof typeof fundTypeIcons]}
-                </div>
-                <div className="font-medium text-[#333] text-lg">
+                </div>  
+                <div className="font-medium text-gray-200 text-lg">
                   Top {fundType} Mutual Funds
                 </div>
               </div>
-              <div className="bg-[#f5f7ff] px-4 py-2 rounded-full text-[#0d0c34] font-medium text-sm">
+              <div className="border border-gray-200 px-4 py-2 rounded-full text-gray-300 font-medium text-sm">
                 5Y Returns (Annualized)
               </div>
             </div>
 
-            <div className="flex flex-col items-start w-full">
+            <div className="flex flex-col items-start w-full text-gray-200">
               {displayedData.map((fund, index) => (
                 <div 
                   key={index} 
-                  className="flex flex-col md:flex-row w-full border-b border-[#f5f7ff] hover:bg-[#f9faff] transition-colors"
+                  className="flex flex-col md:flex-row w-full border-b border-[#f5f7ff] transition-colors"
                 >
                   <div className="w-full md:w-[286px] py-4 px-3">
                     <div className="flex items-center">
@@ -489,14 +490,14 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
                         className="w-11 h-11 rounded-full border border-solid border-[#eaeaea] bg-cover bg-center shadow-sm"
                         style={{ backgroundImage: `url(${fund.logo})` }}
                       />
-                      <div className="ml-3.5 font-medium text-[#222222] text-[15px] leading-5">
+                      <div className="ml-3.5 font-medium text-gray-300 text-[15px] leading-5">
                         {fund.name}
                       </div>
                     </div>
                   </div>
                   <div className="flex items-stretch w-full md:w-auto">
                     <div className="py-4 px-5 border-l border-[#f5f7ff] flex items-center justify-center">
-                      <div className="font-bold text-[#0d0c34] text-base md:text-lg text-center">
+                      <div className="font-bold text-gray-300 text-base md:text-lg text-center">
                         {fund.returns}
                       </div>
                     </div>
@@ -507,22 +508,15 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
           </CardContent>
 
           {data.length > 5 && (
-            <div 
-              className="flex items-center justify-center mt-4 cursor-pointer group hover:scale-[1.02] transition-transform"
-              onClick={() => setExpanded(!expanded)}
+            <Link
+              href={`/mutual-funds/${categoryFromFundTypeLabel(fundType)}`}
+              className="flex items-center justify-center mt-0 group hover:scale-[1.02] transition-transform text-gray-200"
             >
-              <span className="font-medium text-[#0d0c34] text-sm text-center mr-2">
-                {expanded 
-                  ? `Show fewer ${fundType} Mutual Funds` 
-                  : `See all ${fundType} Mutual Funds`
-                }
+              <span className="font-medium text-gray-200 text-sm text-center mr-2">
+                {`See all ${fundType} Mutual Funds`}
               </span>
-              {expanded ? (
-                <ChevronDown className="w-4 h-4 text-[#09ffec] group-hover:-translate-y-1 transition-transform duration-300" />
-              ) : (
-                <ChevronRight className="w-4 h-4 text-[#09ffec] group-hover:translate-x-1 transition-transform duration-300" />
-              )}
-            </div>
+              <ChevronRight className="w-4 h-4 text-gray-200 group-hover:translate-x-1 transition-transform duration-300" />
+            </Link>
           )}
         </Card>
       </div>
@@ -552,7 +546,6 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
     const cardText = "text-white";
     const cardDesc = "text-gray-300";
     const cardBorder = "border-gray-700";
-    const cardHover = "hover:bg-[#1c2254]";
     
     return (
       <div className="flex flex-col w-full md:w-[625px] items-start gap-10"
@@ -560,7 +553,7 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
         <div className="flex flex-col items-start gap-6 w-full">
           <div className="flex items-center gap-3.5 w-full">
             <div className="w-[5px] h-[42px] bg-gradient-to-b from-[#09ffec] to-[#0d0c34] rounded-full" />
-            <h2 className={`font-bold ${headingColor} text-2xl md:text-[40px] leading-normal`}>
+            <h2 className={`font-heading font-bold ${headingColor} text-2xl md:text-[40px] leading-normal`}>
               {title}
             </h2>
           </div>
@@ -574,7 +567,7 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
         <div className="flex flex-col items-start gap-8 w-full">
           <div className="flex items-center gap-3">
             {fundTypeIcons[fundType as keyof typeof fundTypeIcons]}
-            <h3 className={`font-semibold ${typesHeadingColor} text-xl md:text-2xl leading-normal`}>
+            <h3 className={`font-heading font-semibold ${typesHeadingColor} text-xl md:text-2xl leading-normal`}>
               Types of {fundType} Funds
             </h3>
           </div>
@@ -583,7 +576,7 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
             {types.map((type, index) => (
               <div 
                 key={index} 
-                className={`${cardBg} rounded-xl shadow-sm p-5 border ${cardBorder} ${cardHover} transition-shadow duration-300`}
+                className={`${cardBg} rounded-xl shadow-sm p-5 border ${cardBorder} transition-shadow duration-300`}
               >
                 <h4 className={`font-semibold ${cardText} text-lg md:text-xl leading-normal border-b ${cardBorder} pb-2 mb-3`}>
                   {type.title}
@@ -604,7 +597,7 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
       <div className="container mx-auto max-w-7xl">
     <div className="relative mb-16"
         >
-          <h1 className="text-center font-bold text-white text-3xl md:text-[54px] leading-normal mb-4">
+          <h1 className="text-center font-heading font-bold text-white text-3xl md:text:[54px] leading-normal mb-4">
             Types of <span className="relative inline-block">
               Mutual Funds
               <span className="absolute -bottom-2 left-0 w-full h-2 bg-[#09ffec]/40"></span>

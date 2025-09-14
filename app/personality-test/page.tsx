@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { ArrowRight, Check, ChevronRight, Brain, BarChart3, AreaChart, LineChart } from 'lucide-react';
-import NavbarWithoutAnimation from '@/components/NavbarWithoutAnimation';
+import Navbar from '@/components/Navbar';
 // import BubbleAnimation from '@/components/BubbleAnimation'; // Commented out as per requirement
 
 // Types for our questions and results
@@ -204,7 +204,7 @@ function PersonalityTest() {
 
     return (
         <>
-            <NavbarWithoutAnimation />
+            <Navbar />
 
             <main className="min-h-screen bg-gradient-to-b from-white to-gray-50 text-blue-900">
                 {/* Hero Section */}
@@ -257,7 +257,7 @@ function PersonalityTest() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.7 }}
                             >
-                                <h1 className="text-4xl md:text-6xl font-bold mb-6">Discover Your <span className="text-[#1E3A8A]">Investment</span> Personality</h1>
+                                <h1 className="font-heading text-4xl md:text-6xl font-bold mb-6">Discover Your <span className="text-[#1E3A8A]">Investment</span> Personality</h1>
                                 <p className="text-xl mb-8 max-w-lg text-blue-900 font-medium">
                                     Understand your risk tolerance, financial knowledge, and investment mindset to receive
                                     personalized investment recommendations tailored to your unique profile.
@@ -343,7 +343,7 @@ function PersonalityTest() {
                                 <div className="flex items-center justify-center w-16 h-16 rounded-full bg-[#1E3A8A]/20 mb-6">
                                     <Brain className="w-8 h-8 text-[#1E3A8A]" />
                                 </div>
-                                <h2 className="text-3xl md:text-5xl font-bold mb-4 text-blue-900">Investment Personality Test</h2>
+                                <h2 className="font-heading text-3xl md:text-5xl font-bold mb-4 text-blue-900">Investment Personality Test</h2>
                                 <p className="text-blue-900 font-medium max-w-2xl mb-8">
                                     Your answers to these carefully designed questions will help us understand your approach
                                     to investing. We&apos;ll analyze your risk tolerance, knowledge level, and investment
@@ -464,7 +464,7 @@ function PersonalityTest() {
                                 <div className="bg-[#1E3A8A]/20 p-2 rounded-full mb-4">
                                     <AreaChart className="w-8 h-8 text-[#1E3A8A]" />
                                 </div>
-                                <h2 className="text-3xl md:text-5xl font-bold mb-4 text-blue-900">Your Investment Profile</h2>
+                                <h2 className="font-heading text-3xl md:text-5xl font-bold mb-4 text-blue-900">Your Investment Profile</h2>
                                 <p className="text-blue-900 font-medium max-w-2xl">
                                     After completing the test, you&apos;ll receive a detailed analysis of your investment personality,
                                     including recommended investment types and strategies tailored to your profile.

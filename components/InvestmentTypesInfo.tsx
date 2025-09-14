@@ -9,7 +9,7 @@ interface InvestmentTypesInfoProps {
 const InvestmentTypesInfo: React.FC<InvestmentTypesInfoProps> = ({ className }) => {
   return (
     <div className={`text-[#0D0C34] ${className}`}>
-      <h3 className="text-xl font-semibold mb-6">Investment Methods Explained</h3>
+  <h3 className="text-xl font-heading font-semibold mb-6 text-gray-200">Investment Methods Explained</h3>
       
       <div className="flex flex-col gap-8">
         {/* SIP Section */}
@@ -18,10 +18,10 @@ const InvestmentTypesInfo: React.FC<InvestmentTypesInfoProps> = ({ className }) 
             <div className="w-12 h-12 rounded-full bg-[#09ffec]/20 flex items-center justify-center">
               <CalendarClock className="w-6 h-6 text-[#09ffec]" />
             </div>
-            <h4 className="text-lg font-semibold">Systematic Investment Plan (SIP)</h4>
+            <h4 className="text-lg font-heading font-semibold text-gray-200">Systematic Investment Plan (SIP)</h4>
           </div>
           
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-300 mb-4">
             SIP allows you to invest a fixed amount at regular intervals (monthly, quarterly), helping build 
             wealth through the power of compounding and rupee cost averaging.
           </p>
@@ -29,26 +29,26 @@ const InvestmentTypesInfo: React.FC<InvestmentTypesInfoProps> = ({ className }) 
           <div className="grid grid-cols-2 gap-4 mt-4">
             <motion.div 
               whileHover={{ y: -5 }}
-              className="bg-[#f5f7ff] p-4 rounded-xl"
+              className="p-4 rounded-xl border border-gray-400"
             >
               <div className="flex items-center gap-2 mb-2">
-                <Clock className="w-5 h-5 text-[#0D0C34]" />
-                <h5 className="font-medium">Consistency</h5>
+                <Clock className="w-5 h-5 text-gray-300" />
+                <h5 className="font-medium text-gray-300">Consistency</h5>
               </div>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-400">
                 Regular investments build disciplined saving habits
               </p>
             </motion.div>
             
             <motion.div 
               whileHover={{ y: -5 }}
-              className="bg-[#f5f7ff] p-4 rounded-xl"
+              className="p-4 rounded-xl border border-gray-400"
             >
               <div className="flex items-center gap-2 mb-2">
-                <BarChart3 className="w-5 h-5 text-[#0D0C34]" />
-                <h5 className="font-medium">Averaging</h5>
+                <BarChart3 className="w-5 h-5 text-gray-300" />
+                <h5 className="font-medium text-gray-300">Averaging</h5>
               </div>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-400">
                 Buy more units when prices are low, fewer when high
               </p>
             </motion.div>
@@ -64,10 +64,10 @@ const InvestmentTypesInfo: React.FC<InvestmentTypesInfoProps> = ({ className }) 
             <div className="w-12 h-12 rounded-full bg-[#09ffec]/20 flex items-center justify-center">
               <CircleDollarSign className="w-6 h-6 text-[#09ffec]" />
             </div>
-            <h4 className="text-lg font-semibold">Lumpsum Investment</h4>
+            <h4 className="text-lg font-heading font-semibold text-gray-200">Lumpsum Investment</h4>
           </div>
           
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-300 mb-4">
             A one-time investment of a larger amount, ideal when you have a substantial sum ready 
             and want to maximize returns during market upswings.
           </p>
@@ -75,26 +75,26 @@ const InvestmentTypesInfo: React.FC<InvestmentTypesInfoProps> = ({ className }) 
           <div className="grid grid-cols-2 gap-4 mt-4">
             <motion.div 
               whileHover={{ y: -5 }}
-              className="bg-[#f5f7ff] p-4 rounded-xl"
+              className="border border-gray-400 p-4 rounded-xl"
             >
               <div className="flex items-center gap-2 mb-2">
-                <TrendingUp className="w-5 h-5 text-[#0D0C34]" />
-                <h5 className="font-medium">Market Timing</h5>
+                <TrendingUp className="w-5 h-5 text-gray-300" />
+                <h5 className="font-medium text-gray-300">Market Timing</h5>
               </div>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-400">
                 Better returns when invested during market lows
               </p>
             </motion.div>
             
             <motion.div 
               whileHover={{ y: -5 }}
-              className="bg-[#f5f7ff] p-4 rounded-xl"
+              className="border border-gray-400 p-4 rounded-xl"
             >
               <div className="flex items-center gap-2 mb-2">
-                <ArrowDownToLine className="w-5 h-5 text-[#0D0C34]" />
-                <h5 className="font-medium">Lower Costs</h5>
+                <ArrowDownToLine className="w-5 h-5 text-gray-300" />
+                <h5 className="font-medium text-gray-300">Lower Costs</h5>
               </div>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-400">
                 Single transaction means fewer transaction charges
               </p>
             </motion.div>
@@ -103,32 +103,32 @@ const InvestmentTypesInfo: React.FC<InvestmentTypesInfoProps> = ({ className }) 
         
         {/* Comparison */}
         <div className="mt-6">
-          <h4 className="text-lg font-semibold mb-3">Which is right for you?</h4>
+          <h4 className="text-lg font-heading font-semibold mb-3 text-gray-200">Which is right for you?</h4>
           
           <div className="overflow-hidden rounded-xl border border-gray-200">
             <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-[#f5f7ff]">
+              <thead>
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Factor</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SIP</th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lumpsum</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Factor</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">SIP</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Lumpsum</th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="border border-gray-400 divide-y divide-gray-200">
                 <tr>
-                  <td className="px-4 py-3 text-sm font-medium">Risk Exposure</td>
-                  <td className="px-4 py-3 text-sm text-gray-600">Lower</td>
-                  <td className="px-4 py-3 text-sm text-gray-600">Higher</td>
+                  <td className="px-4 py-3 text-sm font-medium text-gray-300">Risk Exposure</td>
+                  <td className="px-4 py-3 text-sm text-gray-300">Lower</td>
+                  <td className="px-4 py-3 text-sm text-gray-300">Higher</td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-3 text-sm font-medium">Initial Investment</td>
-                  <td className="px-4 py-3 text-sm text-gray-600">Small</td>
-                  <td className="px-4 py-3 text-sm text-gray-600">Large</td>
+                  <td className="px-4 py-3 text-sm font-medium text-gray-300">Initial Investment</td>
+                  <td className="px-4 py-3 text-sm text-gray-300">Small</td>
+                  <td className="px-4 py-3 text-sm text-gray-300">Large</td>
                 </tr>
                 <tr>
-                  <td className="px-4 py-3 text-sm font-medium">Market Volatility Impact</td>
-                  <td className="px-4 py-3 text-sm text-gray-600">Minimized</td>
-                  <td className="px-4 py-3 text-sm text-gray-600">Significant</td>
+                  <td className="px-4 py-3 text-sm font-medium text-gray-300">Market Volatility Impact</td>
+                  <td className="px-4 py-3 text-sm text-gray-300">Minimized</td>
+                  <td className="px-4 py-3 text-sm text-gray-300">Significant</td>
                 </tr>
               </tbody>
             </table>

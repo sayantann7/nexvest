@@ -23,7 +23,7 @@ function WelcomeAnimation() {
                     transition={{ duration: 0.8, ease: "easeOut" }}
                     className="fixed inset-0 z-50 flex items-center justify-center bg-[#0D0C34] overflow-hidden"
                 >
-                    <div className="text-2xl md:text-4xl font-medium tracking-wider flex items-center text-[#0AFFFF]">
+                    <div className="text-2xl md:text-4xl font-medium tracking-wider flex items-center text-[#0AFFFF] font-heading">
                         <div className="flex">
                             {"WELCOME TO".split("").map((char, index) => (
                                 <motion.span

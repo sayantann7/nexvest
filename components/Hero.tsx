@@ -2,10 +2,11 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
+import Link from 'next/link';
 
 function Hero() {
 
-    const words = ['honest', 'trusted', 'powerful', 'reliable'];
+    const words = ['trusted', 'powerful', 'powerful', 'honest', 'innovative', 'intelligent'];
     const [currentWord, setCurrentWord] = useState(0);
 
     useEffect(() => {
@@ -25,8 +26,8 @@ function Hero() {
             transition={{ duration: 0.8 }}
             className="md:col-span-2"
         >
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6 text-white">
-                The world&apos;s most{' '}
+            <h1 className="font-heading text-4xl md:text-6xl font-bold leading-tight mb-6 text-white">
+                India&apos;s most{' '}
                 <br />
                 <AnimatePresence mode="wait">
                     <motion.span
@@ -40,19 +41,22 @@ function Hero() {
                         {words[currentWord]}
                     </motion.span>
                 </AnimatePresence>
-                {' '}<br />trade app.
+                {' '}<br />way to invest.
             </h1>
             <p className="text-lg text-white mb-8">
-                Get the latest updates regarding market trends, comprehensive analysis tools, and real-time trading insights.
+                 Private Equity. Algorithmic
+Trading. Mutual Funds. Advisory.<br></br>All under one platform built for next generation of investors.
             </p>
-            <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-[#0AFFFF] text-black px-8 py-4 rounded-full font-semibold flex items-center space-x-2 transition-colors"
-            >
-                <span>Get Started</span>
-                <ChevronRight className="w-9 h-9" />
-            </motion.button>
+            <Link href="/unlisted-shares">
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="bg-[#0AFFFF] text-black px-8 py-4 rounded-full font-semibold flex items-center space-x-2 transition-colors"
+                >
+                    <span> Explore Private Equity</span>
+                    <ChevronRight className="w-9 h-9" />
+                </motion.button>
+            </Link>
         </motion.div>
 
             <motion.div

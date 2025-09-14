@@ -128,6 +128,11 @@ const InvestmentPersonalityTest: React.FC = () => {
     setResult(null);
   };
 
+  const startTestAndScroll = () => {
+    startTest();
+    scrollToSection(testSectionRef);
+  };
+
   const handleAnswer = (value: number) => {
     const newAnswers = [...answers, value];
     setAnswers(newAnswers);
@@ -156,38 +161,38 @@ const InvestmentPersonalityTest: React.FC = () => {
   };
 
   return (
-    <div className="bg-gradient-to-b from-white to-gray-50 text-blue-900">
+    <div className="bg-[#0D0C34] text-white">
       <section className="relative w-full min-h-[450px] md:h-[560px] flex items-center overflow-hidden">
         <video className="absolute inset-0 w-full h-full object-cover z-0" autoPlay muted loop playsInline>
           <source src="/bgVideo.mp4" type="video/mp4" />
           <Image src="/mutualFund/mf-bg.png" alt="Investment Background" className="w-full h-full object-cover" width={1920} height={1080} />
         </video>
-        <div className="absolute inset-0 bg-white/70 z-[1]"></div>
-        <div className="absolute top-0 left-0 right-0 h-32 z-[2]" style={{ background: 'linear-gradient(to bottom, #ffffff 0%, rgba(255,255,255,0) 100%)' }} />
-        <div className="absolute bottom-0 left-0 right-0 h-32 z-[2]" style={{ background: 'linear-gradient(to top, #ffffff 0%, rgba(255,255,255,0) 100%)' }} />
+        <div className="absolute inset-0 bg-[#0D0C34]/75 z-[1]"></div>
+        <div className="absolute top-0 left-0 right-0 h-32 z-[2]" style={{ background: 'linear-gradient(to bottom, #0D0C34 0%, rgba(13,12,52,0) 100%)' }} />
+        <div className="absolute bottom-0 left-0 right-0 h-32 z-[2]" style={{ background: 'linear-gradient(to top, #0D0C34 0%, rgba(13,12,52,0) 100%)' }} />
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-12">
-            <motion.div className="md:w-1/2 text-blue-900" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">Discover Your <span className="text-[#1E3A8A]">Investment</span> Personality</h2>
-              <p className="text-lg md:text-xl mb-8 max-w-lg font-medium">Understand your risk tolerance, financial knowledge, and investment mindset to receive personalized investment recommendations.</p>
-              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-[#1E3A8A] hover:bg-[#15296B] text-white font-bold py-4 px-8 rounded-full flex items-center" onClick={() => scrollToSection(testSectionRef)}>
-                <span>Get Started With The Test</span>
+            <motion.div className="md:w-1/2 text-white" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
+              <h2 className="font-heading text-4xl md:text-5xl font-bold mb-6">Discover Your <span className="text-[#09ffec]">Investment</span> Personality</h2>
+              <p className="text-lg md:text-xl mb-8 max-w-lg font-medium text-slate-200">Understand your risk tolerance, financial knowledge, and investment mindset to receive personalized investment recommendations.</p>
+              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-[#09ffec] hover:bg-[#09ffec]/90 text-[#0D0C34] font-bold py-4 px-8 rounded-full flex items-center" onClick={startTestAndScroll}>
+                <span>Start Test</span>
                 <ArrowRight className="ml-2 w-5 h-5" />
               </motion.button>
             </motion.div>
             <motion.div className="md:w-1/2" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }}>
-              <Card className="bg-white/80 backdrop-blur-sm border border-blue-200 rounded-2xl shadow-lg overflow-hidden">
+              <Card className="bg-[#131740] border border-white/10 rounded-2xl shadow-lg overflow-hidden">
                 <CardContent className="p-8">
-                  <h3 className="text-2xl font-bold mb-4 text-blue-900">Why Take Our Personality Test?</h3>
+                  <h3 className="text-2xl font-bold mb-4 text-white">Why Take Our Personality Test?</h3>
                   <ul className="space-y-4">
                     {["Understand your risk tolerance level","Assess your financial knowledge","Discover your investment mindset","Get personalized investment recommendations","Create a strategy aligned with your goals"].map((item, index) => (
-                      <motion.li key={index} className="flex items-start text-blue-900" initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 + (index * 0.1) }}>
-                        <div className="mr-3 rounded-full bg-[#1E3A8A]/20 p-1"><Check className="w-4 h-4 text-[#1E3A8A]" /></div>
+                      <motion.li key={index} className="flex items-start text-slate-200" initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5 + (index * 0.1) }}>
+                        <div className="mr-3 rounded-full bg-white/10 p-1"><Check className="w-4 h-4 text-[#09ffec]" /></div>
                         <span className="font-medium">{item}</span>
                       </motion.li>
                     ))}
                   </ul>
-                  <p className="mt-6 text-sm font-medium">The test takes ~5 minutes. Your results help NexVest suggest investments that match your profile.</p>
+                  <p className="mt-6 text-sm font-medium text-slate-300">The test takes ~5 minutes. Your results help NexVest suggest investments that match your profile.</p>
                 </CardContent>
               </Card>
             </motion.div>
@@ -198,37 +203,37 @@ const InvestmentPersonalityTest: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <motion.div className="mb-12 flex flex-col items-center text-center" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }}>
-              <div className="flex items-center justify-center w-16 h-16 rounded-full bg-[#1E3A8A]/20 mb-6"><Brain className="w-8 h-8 text-[#1E3A8A]" /></div>
-              <h3 className="text-3xl md:text-5xl font-bold mb-4 text-blue-900">Investment Personality Test</h3>
-              <p className="font-medium max-w-2xl mb-8 text-blue-900">We analyze your risk tolerance, knowledge, and preferences to create a personalized profile.</p>
+              <div className="flex items-center justify-center w-16 h-16 rounded-full bg-white/10 mb-6"><Brain className="w-8 h-8 text-[#09ffec]" /></div>
+              <h3 className="font-heading text-3xl md:text-5xl font-bold mb-4 text-white">Investment Personality Test</h3>
+              <p className="font-medium max-w-2xl mb-8 text-slate-300">We analyze your risk tolerance, knowledge, and preferences to create a personalized profile.</p>
             </motion.div>
             <div className="grid md:grid-cols-3 gap-6 mb-12">
               {[
-                { icon: <BarChart3 className="w-6 h-6 text-[#1E3A8A]" />, title: "5 Questions", description: "Quick assessment" },
-                { icon: <AreaChart className="w-6 h-6 text-[#1E3A8A]" />, title: "Scientific", description: "Evaluates multiple factors" },
-                { icon: <LineChart className="w-6 h-6 text-[#1E3A8A]" />, title: "Personalized", description: "Tailored recommendations" }
+                { icon: <BarChart3 className="w-6 h-6 text-[#09ffec]" />, title: "5 Questions", description: "Quick assessment" },
+                { icon: <AreaChart className="w-6 h-6 text-[#09ffec]" />, title: "Scientific", description: "Evaluates multiple factors" },
+                { icon: <LineChart className="w-6 h-6 text-[#09ffec]" />, title: "Personalized", description: "Tailored recommendations" }
               ].map((feature, index) => (
-                <motion.div key={index} className="bg-[#1E3A8A] p-6 rounded-xl border border-blue-100" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: index * 0.1 }} viewport={{ once: true }}>
-                  <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gray-50 mb-4">{feature.icon}</div>
+                <motion.div key={index} className="bg-[#131740] p-6 rounded-xl border border-white/10" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: index * 0.1 }} viewport={{ once: true }}>
+                  <div className="flex items-center justify-center w-12 h-12 rounded-full bg-white/10 mb-4">{feature.icon}</div>
                   <h4 className="text-xl font-semibold mb-2 text-white">{feature.title}</h4>
-                  <p className="text-white font-medium text-sm">{feature.description}</p>
+                  <p className="text-slate-300 font-medium text-sm">{feature.description}</p>
                 </motion.div>
               ))}
             </div>
             {isTestStarted ? (
-              <Card className="bg-white border border-blue-100 rounded-xl shadow-md">
+              <Card className="bg-[#131740] border border-white/10 rounded-xl shadow-md">
                 <CardContent className="p-8">
                   <div className="mb-8">
-                    <h5 className="text-xl font-semibold mb-4 text-blue-900">Question {currentQuestionIndex + 1} of {questions.length}</h5>
-                    <Progress value={progress} className="w-full h-2 bg-gray-100" />
+                    <h5 className="text-xl font-semibold mb-4 text-white">Question {currentQuestionIndex + 1} of {questions.length}</h5>
+                    <Progress value={progress} className="w-full h-2 bg-white/10" />
                   </div>
                   <motion.div key={currentQuestionIndex} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.4 }}>
-                    <h6 className="text-2xl font-bold mb-6 text-blue-900">{questions[currentQuestionIndex].question}</h6>
+                    <h6 className="text-2xl font-bold mb-6 text-white">{questions[currentQuestionIndex].question}</h6>
                     <div className="space-y-4">
                       {questions[currentQuestionIndex].options.map((option, idx) => (
-                        <motion.button key={idx} className="w-full text-left p-4 rounded-lg border border-blue-100 hover:border-[#1E3A8A] hover:bg-blue-50 transition-all flex justify-between items-center text-blue-900 font-medium" onClick={() => handleAnswer(option.value)} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                        <motion.button key={idx} className="w-full text-left p-4 rounded-lg border border-white/10 hover:border-white/20 hover:bg-white/5 transition-all flex justify-between items-center text-white font-medium" onClick={() => handleAnswer(option.value)} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                           <span>{option.text}</span>
-                          <ChevronRight className="w-5 h-5 text-blue-700" />
+                          <ChevronRight className="w-5 h-5 text-[#09ffec]" />
                         </motion.button>
                       ))}
                     </div>
@@ -236,61 +241,53 @@ const InvestmentPersonalityTest: React.FC = () => {
                 </CardContent>
               </Card>
             ) : (
-              <motion.div className="flex justify-center" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.4 }} viewport={{ once: true }}>
-                <Button onClick={startTest} className="bg-[#1E3A8A] hover:bg-[#15296B] text-white text-lg font-bold py-6 px-8 rounded-full flex items-center" size="lg">Start The Test Now<ArrowRight className="ml-2 w-6 h-6" /></Button>
-              </motion.div>
+              <div className="hidden" />
             )}
           </div>
         </div>
       </section>
-      <section ref={resultsSectionRef} className="py-16 md:py-24 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <motion.div className="mb-12 flex flex-col items-center text-center" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }}>
-              <div className="bg-[#1E3A8A]/20 p-2 rounded-full mb-4"><AreaChart className="w-8 h-8 text-[#1E3A8A]" /></div>
-              <h3 className="text-3xl md:text-5xl font-bold mb-4 text-blue-900">Your Investment Profile</h3>
-              <p className="font-medium max-w-2xl text-blue-900">Complete the test to see a detailed analysis of your personality and recommendations.</p>
-            </motion.div>
-            {result ? (
+      {result ? (
+        <section ref={resultsSectionRef} className="py-16 md:py-24 bg-[#0D0C34]">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto">
+              <motion.div className="mb-12 flex flex-col items-center text-center" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }}>
+                <div className="bg-white/10 p-2 rounded-full mb-4"><AreaChart className="w-8 h-8 text-[#09ffec]" /></div>
+                <h3 className="font-heading text-3xl md:text-5xl font-bold mb-4 text-white">Your Investment Profile</h3>
+                <p className="font-medium max-w-2xl text-slate-300">Here’s a detailed analysis of your personality and recommendations.</p>
+              </motion.div>
               <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5 }}>
                 <div className="text-center mb-8">
-                  <span className="inline-block bg-[#1E3A8A] text-white font-bold px-4 py-1 rounded-full text-sm mb-4">Your Results</span>
-                  <h4 className="text-3xl md:text-5xl font-bold mb-2 text-blue-900">You are a <span style={{ color: result.color }}>{result.title}</span></h4>
-                  <p className="font-medium text-blue-900">{result.description}</p>
+                  <span className="inline-block bg-white/10 text-white font-bold px-4 py-1 rounded-full text-sm mb-4">Your Results</span>
+                  <h4 className="text-3xl md:text-5xl font-bold mb-2 text-white">You are a <span style={{ color: result.color }}>{result.title}</span></h4>
+                  <p className="font-medium text-slate-300">{result.description}</p>
                 </div>
-                <Card className="bg-white border border-blue-100 rounded-xl mb-8 shadow-md">
+                <Card className="bg-[#131740] border border-white/10 rounded-xl mb-8 shadow-md">
                   <CardContent className="p-8">
                     <div className="grid md:grid-cols-2 gap-6">
                       <div className="space-y-4">
-                        <h5 className="text-xl font-semibold text-blue-900">Recommended Investment Types</h5>
-                        <p className="font-medium text-blue-900">{result.investmentType}</p>
+                        <h5 className="text-xl font-semibold text-white">Recommended Investment Types</h5>
+                        <p className="font-medium text-slate-300">{result.investmentType}</p>
                       </div>
                       <div className="space-y-4">
-                        <h5 className="text-xl font-semibold text-blue-900">Your Risk Tolerance</h5>
+                        <h5 className="text-xl font-semibold text-white">Your Risk Tolerance</h5>
                         <div className="flex items-center">
-                          <div className="w-full bg-gray-100 rounded-full h-4">
+                          <div className="w-full bg-white/10 rounded-full h-4">
                             <div className="h-4 rounded-full" style={{ width: result.riskLevel === 'Low' ? '25%' : result.riskLevel === 'Medium' ? '50%' : result.riskLevel === 'Medium-High' ? '75%' : '100%', backgroundColor: result.color }} />
                           </div>
-                          <span className="ml-3 font-semibold text-blue-900">{result.riskLevel}</span>
+                          <span className="ml-3 font-semibold text-white">{result.riskLevel}</span>
                         </div>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
                 <div className="flex flex-col md:flex-row gap-4 justify-center">
-                  <Button onClick={resetTest} className="bg-transparent border border-blue-800 text-blue-900 hover:bg-blue-800 hover:text-white font-medium">Retake Test</Button>
+                  <Button onClick={resetTest} className="bg-transparent border border-white/20 text-white hover:bg-white/10 font-medium">Retake Test</Button>
                 </div>
               </motion.div>
-            ) : (
-              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }} className="bg-[#1E3A8A] border border-blue-100 rounded-xl p-8 text-center shadow-md">
-                <h5 className="text-xl font-semibold mb-4 text-white">Complete the Test</h5>
-                <p className="text-lg text-white font-medium mb-6">Complete the personality test to get your profile and recommendations.</p>
-                <Button onClick={() => scrollToSection(testSectionRef)} className="bg-white text-[#1E3A8A] font-medium">Take the Test</Button>
-              </motion.div>
-            )}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
     </div>
   );
 };

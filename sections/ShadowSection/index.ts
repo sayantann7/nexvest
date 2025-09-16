@@ -1,1 +1,0 @@
-export { ShadowSection } from "./ShadowSection";

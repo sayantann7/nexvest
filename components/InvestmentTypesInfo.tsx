@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowDownToLine, CalendarClock, TrendingUp, CircleDollarSign, Clock, BarChart3 } from 'lucide-react';

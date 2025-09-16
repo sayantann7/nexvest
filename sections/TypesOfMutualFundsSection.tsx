@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { categoryFromFundTypeLabel } from "@/lib/mutualFundsData";
-import { Button } from "../../components/ui/button";
-import { Card, CardContent } from "../../components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 // Removed framer-motion animations for a static experience
 import { ChevronRight, TrendingUp, BarChart2, PieChart, ChevronDown } from "lucide-react";
 

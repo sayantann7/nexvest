@@ -1,6 +1,6 @@
+"use client";
 import React from "react";
-import { Card, CardContent } from "../../components/ui/card";
-import { Button } from "../../components/ui/button";
+import { Card, CardContent } from "../components/ui/card";
 import { motion } from "framer-motion";
 import { BarChart3, PiggyBank, TrendingUp, Users } from "lucide-react";
 
@@ -121,21 +121,9 @@ export const MutualFundsOverviewSection = (): React.ReactElement => {
             ))}
           </div>
         </div>
-
-        {/* Call to action */}
-        {/* <motion.div
-          className="mt-20 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          viewport={{ once: true }}
-        >
-          <p className="text-lg text-white/70 mb-6">Start your investment journey today</p>
-          <Button className="bg-[#09ffec] hover:bg-[#09ffec]/90 text-[#0D0C34] px-8 py-6 rounded-full text-lg">
-            Explore Mutual Fund Options
-          </Button>
-        </motion.div> */}
       </div>
     </section>
   );
 };
+
+export default MutualFundsOverviewSection;

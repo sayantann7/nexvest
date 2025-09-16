@@ -1,1 +1,0 @@
-export { TypesOfMutualFundsSection } from "./TypesOfMutualFundsSection";

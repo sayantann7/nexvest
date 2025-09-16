@@ -1,11 +1,11 @@
 import React from "react";
-import { Button } from "../../components/ui/button";
-import { Card, CardContent } from "../../components/ui/card";
-import { Input } from "../../components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
   ToggleGroup,
   ToggleGroupItem,
-} from "../../components/ui/toggle-group";
+} from "@/components/ui/toggle-group";
 
 export const ShadowSection: React.FC = () => {
   // Investment options data

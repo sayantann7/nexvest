@@ -76,17 +76,32 @@ export const FUND_HOUSE_FOLDERS: FundHouseDirectory[] = [
 
 export async function fetchFundHouseData(dir: FundHouseDirectory): Promise<FundHouse | null> {
   try {
-    // In a server context, global fetch in Node requires absolute URLs.
-    // Build one using NEXT_PUBLIC_SITE_ORIGIN or fallback to http://localhost:3000.
+    // Need an absolute URL on the server. Prefer explicit env, then request headers, finally a last‑ditch default.
+    let origin = process.env.NEXT_PUBLIC_SITE_ORIGIN || process.env.SITE_ORIGIN || '';
+    if (!origin) {
+      // Try to infer from incoming request (works when rendering per-request on Vercel)
+      try {
+  const { headers } = await import('next/headers');
+  const h = await headers();
+  const proto = h.get('x-forwarded-proto') || 'https';
+  const host = h.get('host');
+        if (host) origin = `${proto}://${host}`;
+      } catch {
+        // headers() not available (e.g. during static build) – ignore
+      }
+    }
+    // As a final fallback (should not happen in prod) use localhost
+    if (!origin) origin = 'http://localhost:3000';
+
     const isRelative = dir.path.startsWith('/');
-    const origin = process.env.NEXT_PUBLIC_SITE_ORIGIN || process.env.SITE_ORIGIN || 'http://localhost:3000';
     const url = isRelative ? origin.replace(/\/$/, '') + dir.path : dir.path;
-    const res = await fetch(url, { cache: 'force-cache' });
+
+    const res = await fetch(url, { cache: 'force-cache', next: { revalidate: 60 * 60 } }); // revalidate hourly
     if(!res.ok) return null;
     const data: SchemeRecord[] = await res.json();
     return { name: dir.name, slug: dir.slug, filePath: dir.path, schemes: data };
   } catch (e) {
-    console.error('Failed to fetch fund house', dir.name, e);
+    console.error('Failed to fetch fund house', { name: dir.name, path: dir.path, error: e });
     return null;
   }
 }

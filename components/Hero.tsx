@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 function Hero() {
 
-    const words = ['trusted', 'powerful', 'powerful', 'honest', 'innovative', 'intelligent'];
+    const words = ['gateway', 'key', 'launchpad', 'compass', 'doorway'];
     const [currentWord, setCurrentWord] = useState(0);
 
     useEffect(() => {
@@ -27,8 +27,7 @@ function Hero() {
             className="md:col-span-2"
         >
             <h1 className="font-heading text-4xl md:text-6xl font-bold leading-tight mb-6 text-white">
-                India&apos;s most{' '}
-                <br />
+                Your {' '}
                 <AnimatePresence mode="wait">
                     <motion.span
                         key={words[currentWord]}
@@ -41,11 +40,11 @@ function Hero() {
                         {words[currentWord]}
                     </motion.span>
                 </AnimatePresence>
-                {' '}<br />way to invest.
+                {' '}<br />to <span className="inline-block bg-gradient-to-r from-[#FF671F] via-[#FFFFFF] to-[#046A38] text-transparent bg-clip-text">Bharat</span>&apos;s Viksit Chapter
             </h1>
             <p className="text-lg text-white mb-8">
-                 Private Equity. Algorithmic
-Trading. Mutual Funds. Advisory.<br></br>All under one platform built for next generation of investors.
+                Investing with vision, advising with purpose — helping ambitious Indians embrace aspirational investing, next-generation advisory and AI-driven insights. 
+                Empowering you to seize opportunities, accelerate growth and shape tomorrow’s wealth today.
             </p>
             <Link href="/unlisted-shares">
                 <motion.button
@@ -53,7 +52,7 @@ Trading. Mutual Funds. Advisory.<br></br>All under one platform built for next g
                     whileTap={{ scale: 0.95 }}
                     className="bg-[#0AFFFF] text-black px-8 py-4 rounded-full font-semibold flex items-center space-x-2 transition-colors"
                 >
-                    <span> Explore Private Equity</span>
+                    <span>Free Portfolio Analysis</span>
                     <ChevronRight className="w-9 h-9" />
                 </motion.button>
             </Link>

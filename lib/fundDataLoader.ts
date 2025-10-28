@@ -81,10 +81,10 @@ export async function fetchFundHouseData(dir: FundHouseDirectory): Promise<FundH
     if (!origin) {
       // Try to infer from incoming request (works when rendering per-request on Vercel)
       try {
-  const { headers } = await import('next/headers');
-  const h = await headers();
-  const proto = h.get('x-forwarded-proto') || 'https';
-  const host = h.get('host');
+        const { headers } = await import('next/headers');
+        const h = await headers();
+        const proto = h.get('x-forwarded-proto') || 'https';
+        const host = h.get('host');
         if (host) origin = `${proto}://${host}`;
       } catch {
         // headers() not available (e.g. during static build) – ignore
@@ -97,7 +97,7 @@ export async function fetchFundHouseData(dir: FundHouseDirectory): Promise<FundH
     const url = isRelative ? origin.replace(/\/$/, '') + dir.path : dir.path;
 
     const res = await fetch(url, { cache: 'force-cache', next: { revalidate: 60 * 60 } }); // revalidate hourly
-    if(!res.ok) return null;
+    if (!res.ok) return null;
     const data: SchemeRecord[] = await res.json();
     return { name: dir.name, slug: dir.slug, filePath: dir.path, schemes: data };
   } catch (e) {
@@ -113,7 +113,7 @@ export async function loadAllFundHouses(): Promise<FundHouse[]> {
 
 export async function findFundHouseBySlug(slug: string): Promise<FundHouse | null> {
   const target = FUND_HOUSE_FOLDERS.find(f => f.slug === slug);
-  if(!target) return null;
+  if (!target) return null;
   return fetchFundHouseData(target);
 }
 
@@ -123,8 +123,8 @@ export function findSchemeBySlugSync(house: FundHouse, schemeSlug: string): Sche
 
 export async function findSchemeBySlug(houseSlug: string, schemeSlug: string): Promise<{ house: FundHouse; scheme: SchemeRecord } | null> {
   const house = await findFundHouseBySlug(houseSlug);
-  if(!house) return null;
+  if (!house) return null;
   const scheme = findSchemeBySlugSync(house, schemeSlug);
-  if(!scheme) return null;
+  if (!scheme) return null;
   return { house, scheme };
 }

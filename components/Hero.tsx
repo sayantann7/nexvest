@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 function Hero() {
 
-    const words = ['gateway', 'key', 'launchpad', 'compass', 'doorway'];
+    const words = ['gateway', 'key', 'compass', 'doorway'];
     const [currentWord, setCurrentWord] = useState(0);
 
     useEffect(() => {
@@ -40,7 +40,7 @@ function Hero() {
                         {words[currentWord]}
                     </motion.span>
                 </AnimatePresence>
-                {' '}<br />to <span className="inline-block bg-gradient-to-r from-[#FF671F] via-[#FFFFFF] to-[#046A38] text-transparent bg-clip-text">Bharat</span>&apos;s Viksit Chapter
+                {' '}<br />to <span className="flag-gradient inline-block">Bharat</span>&apos;s Viksit Chapter
             </h1>
             <p className="text-lg text-white mb-8">
                 Investing with vision, advising with purpose — helping ambitious Indians embrace aspirational investing, next-generation advisory and AI-driven insights. 

@@ -28,3 +28,26 @@ body {
 .font-heading {
   font-family: var(--font-heading);
 }
+
+.flag-gradient {
+  display: inline-block;
+  background: linear-gradient(120deg, #ff671f 0%, #ff671f 25%, #ffffff 50%, #046a38 75%, #046a38 100%);
+  background-size: 200% 200%;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: flag-wave 5s ease-in-out infinite;
+  will-change: background-position, transform;
+}
+
+@keyframes flag-wave {
+  0%,
+  100% {
+    background-position: 0% 50%;
+    transform: perspective(400px) rotateY(-2deg) skewY(0.5deg);
+  }
+  50% {
+    background-position: 100% 52%;
+    transform: perspective(400px) rotateY(2deg) skewY(-0.5deg);
+  }
+}

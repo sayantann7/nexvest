@@ -1,9 +1,8 @@
-import React, { useState } from "react";
 import Link from "next/link";
 import { categoryFromFundTypeLabel } from "@/lib/mutualFundsData";
 import { Card, CardContent } from "@/components/ui/card";
 // Removed framer-motion animations for a static experience
-import { ChevronRight, TrendingUp, BarChart2, PieChart, ChevronDown } from "lucide-react";
+import { ChevronRight, TrendingUp, BarChart2, PieChart } from "lucide-react";
 
 const equityFundData = [
   {
@@ -30,8 +29,16 @@ const equityFundData = [
   { name: "Quant Mid Cap Fund", logo: "/mutualFund/quant.png", returns: "+22.82%" },
   { name: "Quant Flexi Cap Fund", logo: "/mutualFund/quant.png", returns: "+22.55%" },
   { name: "Edelweiss Mid Cap Fund", logo: "/mutualFund/edelweiss.png", returns: "(+22.47% p.a." },
-  { name: "ICICI Prudential Infrastructure Fund", logo: "/mutualFund/icici.jpg", returns: "+22.38%" },
-  { name: "Invesco India Infrastructure Fund", logo: "/mutualFund/invesco.png", returns: "+22.23%" },
+  {
+    name: "ICICI Prudential Infrastructure Fund",
+    logo: "/mutualFund/icici.jpg",
+    returns: "+22.38%",
+  },
+  {
+    name: "Invesco India Infrastructure Fund",
+    logo: "/mutualFund/invesco.png",
+    returns: "+22.23%",
+  },
 ];
 
 const debtFundData = [
@@ -133,7 +140,7 @@ const hybridFundData = [
     name: "DSP Aggressive Hybrid Fund",
     logo: "/mutualFund/dsp.png",
     returns: "+15.53%",
-  }
+  },
 ];
 
 const elssFundData = [
@@ -242,7 +249,6 @@ const indexFundData = [
   },
 ];
 
-
 const goldFundData = [
   {
     name: "Nippon India Gold Savings Fund",
@@ -293,10 +299,8 @@ const goldFundData = [
     name: "Motilal Oswal Gold and Silver ETFs FoF",
     logo: "/mutualFund/motilaloswal.png",
     returns: "NA",
-  }
+  },
 ];
-
-
 
 const equityFundTypes = [
   {
@@ -390,7 +394,6 @@ const elssFundTypes = [
   },
 ];
 
-
 const goldFundTypes = [
   {
     title: "Gold Exchange Traded Funds (ETFs)",
@@ -413,7 +416,6 @@ const goldFundTypes = [
       "These funds allocate to Government of India Sovereign Gold Bonds, earning fixed interest plus gold-price appreciation without physical storage.",
   },
 ];
-
 
 const indexFundTypes = [
   {
@@ -438,39 +440,33 @@ const indexFundTypes = [
   },
 ];
 
-
-
 export const TypesOfMutualFundsSection = (): React.ReactElement => {
   // Removed animation variants previously used with framer-motion
-  
+
   // Icons for fund types
   const fundTypeIcons = {
-    "Equity": <TrendingUp className="w-8 h-8 text-[#09ffec]" />,
-    "Debt": <BarChart2 className="w-8 h-8 text-[#09ffec]" />,
-    "Hybrid": <PieChart className="w-8 h-8 text-[#09ffec]" />,
-    "Index": <BarChart2 className="w-8 h-8 text-[#09ffec]" />,
-    "ELSS": <PieChart className="w-8 h-8 text-[#09ffec]" />,
-    "Gold": <TrendingUp className="w-8 h-8 text-[#09ffec]" />,
+    Equity: <TrendingUp className="w-8 h-8 text-[#09ffec]" />,
+    Debt: <BarChart2 className="w-8 h-8 text-[#09ffec]" />,
+    Hybrid: <PieChart className="w-8 h-8 text-[#09ffec]" />,
+    Index: <BarChart2 className="w-8 h-8 text-[#09ffec]" />,
+    ELSS: <PieChart className="w-8 h-8 text-[#09ffec]" />,
+    Gold: <TrendingUp className="w-8 h-8 text-[#09ffec]" />,
   };
 
-  const FundCard = ({ data, fundType }: { data: typeof equityFundData, fundType: string }) => {
-  const [expanded] = useState(false);
-  // Always show a short preview here; full list moves to dedicated pages
-  const displayedData = data.slice(0, 5);
+  const FundCard = ({ data, fundType }: { data: typeof equityFundData; fundType: string }) => {
+    // Always show a short preview here; full list moves to dedicated pages
+    const displayedData = data.slice(0, 5);
 
     return (
-      <div className="w-full md:w-[532px]"
-      >
+      <div className="w-full md:w-[532px]">
         <Card className="flex flex-col items-center gap-5 p-4 bg-white rounded-2xl overflow-hidden shadow-[0px_0px_30px_rgba(0,0,0,0.1)] transform transition-all duration-300 hover:shadow-[0px_0px_40px_rgba(0,0,0,0.15)] hover:-translate-y-1 border border-gray-200 text-gray-200 bg-[#0d0c34]">
           <CardContent className="flex flex-col w-full items-start p-0">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 relative w-full border-b border-gray-100 pb-4 mb-2">
               <div className="flex items-center gap-2">
                 <div className="bg-gradient-to-r from-[#0d0c34] to-[#1a1956] p-2 rounded-lg">
                   {fundTypeIcons[fundType as keyof typeof fundTypeIcons]}
-                </div>  
-                <div className="font-medium text-gray-200 text-lg">
-                  Top {fundType} Mutual Funds
                 </div>
+                <div className="font-medium text-gray-200 text-lg">Top {fundType} Mutual Funds</div>
               </div>
               <div className="border border-gray-200 px-4 py-2 rounded-full text-gray-300 font-medium text-sm">
                 5Y Returns (Annualized)
@@ -479,8 +475,8 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
 
             <div className="flex flex-col items-start w-full text-gray-200">
               {displayedData.map((fund, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className="flex flex-col md:flex-row w-full border-b border-[#f5f7ff] transition-colors"
                 >
                   <div className="w-full md:w-[286px] py-4 px-3">
@@ -533,26 +529,27 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
     sectionIndex: number;
   }) => {
     const fundType = title.split(" ")[0];
-    
+
     // Using consistent styling for all sections (using the styles from sectionIndex 0)
     const headingColor = "text-white";
     const descriptionColor = "text-gray-300";
     const typesHeadingColor = "text-white";
     const borderColor = "border-gray-700";
-    
+
     // Card colors - using the same styling for all cards
     const cardBg = "bg-[#131740]";
     const cardText = "text-white";
     const cardDesc = "text-gray-300";
     const cardBorder = "border-gray-700";
-    
+
     return (
-      <div className="flex flex-col w-full md:w-[625px] items-start gap-10"
-      >
+      <div className="flex flex-col w-full md:w-[625px] items-start gap-10">
         <div className="flex flex-col items-start gap-6 w-full">
           <div className="flex items-center gap-3.5 w-full">
             <div className="w-[5px] h-[42px] bg-gradient-to-b from-[#09ffec] to-[#0d0c34] rounded-full" />
-            <h2 className={`font-heading font-bold ${headingColor} text-2xl md:text-[40px] leading-normal`}>
+            <h2
+              className={`font-heading font-bold ${headingColor} text-2xl md:text-[40px] leading-normal`}
+            >
               {title}
             </h2>
           </div>
@@ -566,18 +563,22 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
         <div className="flex flex-col items-start gap-8 w-full">
           <div className="flex items-center gap-3">
             {fundTypeIcons[fundType as keyof typeof fundTypeIcons]}
-            <h3 className={`font-heading font-semibold ${typesHeadingColor} text-xl md:text-2xl leading-normal`}>
+            <h3
+              className={`font-heading font-semibold ${typesHeadingColor} text-xl md:text-2xl leading-normal`}
+            >
               Types of {fundType} Funds
             </h3>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
             {types.map((type, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className={`${cardBg} rounded-xl shadow-sm p-5 border ${cardBorder} transition-shadow duration-300`}
               >
-                <h4 className={`font-semibold ${cardText} text-lg md:text-xl leading-normal border-b ${cardBorder} pb-2 mb-3`}>
+                <h4
+                  className={`font-semibold ${cardText} text-lg md:text-xl leading-normal border-b ${cardBorder} pb-2 mb-3`}
+                >
                   {type.title}
                 </h4>
                 <p className={`font-normal ${cardDesc} text-sm md:text-[15px] leading-relaxed`}>
@@ -594,26 +595,25 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
   return (
     <section className="w-full bg-[#0D0C34] py-16 md:py-24 px-4 md:px-8 overflow-hidden">
       <div className="container mx-auto max-w-7xl">
-    <div className="relative mb-16"
-        >
+        <div className="relative mb-16">
           <h1 className="text-center font-heading font-bold text-white text-3xl md:text:[54px] leading-normal mb-4">
-            Types of <span className="relative inline-block">
+            Types of{" "}
+            <span className="relative inline-block">
               Mutual Funds
               <span className="absolute -bottom-2 left-0 w-full h-2 bg-[#09ffec]/40"></span>
             </span>
           </h1>
           <p className="text-center font-medium text-gray-300 text-lg md:text-xl leading-relaxed mb-8 max-w-3xl mx-auto">
-            Mutual funds in India are classified into different categories based
-            on the asset class they invest in.
+            Mutual funds in India are classified into different categories based on the asset class
+            they invest in.
           </p>
-          
+
           {/* Decorative elements */}
           <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#09ffec]/5 rounded-full blur-3xl"></div>
           <div className="absolute -bottom-20 -left-10 w-40 h-40 bg-[#09ffec]/10 rounded-full blur-3xl"></div>
-    </div>
-        
-    <div className="flex flex-col gap-28 md:gap-40"
-        >
+        </div>
+
+        <div className="flex flex-col gap-28 md:gap-40">
           {/* First section - Equity */}
           <div className="relative">
             <div className="flex flex-col lg:flex-row items-start gap-12 md:gap-[86px]">
@@ -635,10 +635,9 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
                 description={
                   <>
                     <span className="text-[#09ffec] font-medium">Debt funds</span> generate returns
-                    by lending money to corporates and the government by buying
-                    their debt papers. These funds are classified into different
-                    categories based on their lending period and credit quality of
-                    the papers.
+                    by lending money to corporates and the government by buying their debt papers.
+                    These funds are classified into different categories based on their lending
+                    period and credit quality of the papers.
                   </>
                 }
                 types={debtFundTypes}
@@ -657,8 +656,8 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
                 title="Hybrid Mutual Funds"
                 description={
                   <>
-                    Hybrid funds invest in a mix of asset classes, including
-                    equity, debt, or gold. There are multiple categories of{" "}
+                    Hybrid funds invest in a mix of asset classes, including equity, debt, or gold.
+                    There are multiple categories of{" "}
                     <a
                       href="https://www.etmoney.com/mutual-funds/hybrid"
                       rel="noopener noreferrer"
@@ -667,8 +666,7 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
                     >
                       hybrid funds
                     </a>{" "}
-                    based on how much they allocate across different asset
-                    classes.
+                    based on how much they allocate across different asset classes.
                   </>
                 }
                 types={hybridFundTypes}
@@ -685,7 +683,10 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
                 title="Index Mutual Funds"
                 description={
                   <>
-                    <span className="text-[#09ffec] font-medium">Index mutual funds</span> are passively managed portfolios designed to replicate the performance of a specific market benchmark—such as the Nifty 50, Sensex, S&P 500, or a bond index—by holding the same securities in the same proportions. 
+                    <span className="text-[#09ffec] font-medium">Index mutual funds</span> are
+                    passively managed portfolios designed to replicate the performance of a specific
+                    market benchmark—such as the Nifty 50, Sensex, S&P 500, or a bond index—by
+                    holding the same securities in the same proportions.
                   </>
                 }
                 types={indexFundTypes}
@@ -704,7 +705,9 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
                 title="ELSS Mutual Funds"
                 description={
                   <>
-                    Equity-Linked Savings Schemes (ELSS) are diversified equity mutual funds that come with a mandatory three-year lock-in period. They offer the potential for higher long-term capital appreciation compared to pure debt or hybrid funds.
+                    Equity-Linked Savings Schemes (ELSS) are diversified equity mutual funds that
+                    come with a mandatory three-year lock-in period. They offer the potential for
+                    higher long-term capital appreciation compared to pure debt or hybrid funds.
                   </>
                 }
                 types={elssFundTypes}
@@ -721,7 +724,10 @@ export const TypesOfMutualFundsSection = (): React.ReactElement => {
                 title="Gold Mutual Funds"
                 description={
                   <>
-                    <span className="text-[#09ffec] font-medium">Gold mutual funds</span> invest primarily in instruments that track the price of gold—such as gold ETFs, sovereign gold bonds, or gold-related securities—without the need to physically buy, store, or insure bullion.
+                    <span className="text-[#09ffec] font-medium">Gold mutual funds</span> invest
+                    primarily in instruments that track the price of gold—such as gold ETFs,
+                    sovereign gold bonds, or gold-related securities—without the need to physically
+                    buy, store, or insure bullion.
                   </>
                 }
                 types={goldFundTypes}

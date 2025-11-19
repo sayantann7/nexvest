@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import ChatCallBot from '@/components/ChatCallBot';
-import DisclaimerModal from '@/components/DisclaimerModal';
-import Footer from '../components/Footer';
-import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
+import ChatCallBot from "@/components/ChatCallBot";
+import DisclaimerModal from "@/components/DisclaimerModal";
+import Footer from "../components/Footer";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 
-// Configure modern fonts with CSS variables for Tailwind v4 usage
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
-const jakarta = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-heading', display: 'swap' });
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-heading",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "NexVest",
